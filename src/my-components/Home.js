@@ -1,4 +1,4 @@
-//Import all dependencies, other Components
+import React, { useState } from "react";
 import FormCustomerDetail from "./FormCustomerDetail";
 import FormRepairDetail from "./FormRepairDetail";
 import FormCourtesyPhone from "./FormCourtesyPhone";
@@ -6,67 +6,69 @@ import FormCost from "./FormCost";
 import FormButtons from "./FormButtons";
 import { useNavigate } from "react-router-dom";
 
-//Function Component
+// Function Component
 function Home() {
+  // Parent Component "Home"
+  const [sharedBond, setSharedBond] = useState(0); // Child2 (FormCost) receive data from Child1 (FormCourtesyPhone)
   const navigate = useNavigate();
+
+  const updateSharedState = (value) => {
+    setSharedBond(value); // Child1 (FormCourtesyPhone) pass data to Child2 (FormCost)
+  };
+
   const onSubmit = async (event) => {
-    event.preventDefault(); //prevent browser from sending data to server
+    event.preventDefault(); // Prevent the browser from sending data to the server
     try {
-      //open the "Invoice" component
-      //alert('Form was submitted!');
+      // Open the "Invoice" component
       navigate("/invoice");
     } catch (e) {
       alert("ERROR!!!");
     }
   };
 
-  //Component UI: HTML Rendering
+  // Component UI: HTML Rendering
   return (
     <>
-      <div class="container-fluid">
-        <form
-          class="row"
-          style={{ minHeight: "60vh", minWidth: "100%" }}
-          onSubmit={onSubmit}
-        >
-          {/*Customner Details*/}
+      <div className="container-fluid">
+        <form className="row" style={{ minHeight: "60vh" }} onSubmit={onSubmit}>
+          {/* Customer Details */}
           <div
-            class="col-12 col-lg-4 p-4 m-0"
+            className="col-12 col-lg-4 p-4 m-0"
             style={{ minHeight: "30vh", backgroundColor: "#FCF3CF" }}
           >
-            {" "}
             <FormCustomerDetail />
           </div>
 
-          {/*Repair Details*/}
+          {/* Repair Details */}
           <div
-            class="col-12 col-lg-4 p-4 m-0"
+            className="col-12 col-lg-4 p-4 m-0"
             style={{ minHeight: "30vh", backgroundColor: "#D5F5E3" }}
           >
             <FormRepairDetail />
           </div>
 
-          {/*Courtesy Phone & Cost*/}
-          <div class="col-12 col-lg-4 p-0 m-0">
-            {/*Courtesy phone*/}
+          {/* Courtesy Phone & Cost */}
+          <div className="col-12 col-lg-4 p-0 m-0">
+            {/* Courtesy phone */}
             <div
-              class="p-4"
+              className="p-4"
               style={{ minHeight: "30vh", backgroundColor: "#2874A6" }}
             >
-              <FormCourtesyPhone />
+              <FormCourtesyPhone passDataToParent={updateSharedState} />{" "}
+              {/* Child1 */}
             </div>
-            {/*Cost*/}
+            {/* Cost */}
             <div
-              class="p-4"
+              className="p-4"
               style={{ minHeight: "20vh", backgroundColor: "#EDBB99" }}
             >
-              <FormCost />
+              <FormCost sharedPropBond={sharedBond} /> {/* Child2 */}
             </div>
           </div>
 
-          {/*Button area*/}
+          {/* Button area */}
           <div
-            class="p-4 text-center"
+            className="p-4 text-center"
             style={{ minHeight: "10vh", backgroundColor: "#EDBB99" }}
           >
             <FormButtons />
@@ -77,5 +79,5 @@ function Home() {
   );
 }
 
-//Export this component to the entire app, can be re-used or hooked into other Components
+// Export this component to the entire app, can be re-used or hooked into other Components
 export default Home;

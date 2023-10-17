@@ -74,6 +74,37 @@ function FormCustomerDetail() {
         <label class="col-12 col-md-12 col-lg-4">Suburb</label>
         <input class="col-12 col-md-12 col-lg-7" type="text" id="suburb" />
       </div>
+      <div class="row mt-1">
+        <label class="col-12 col-md-12 col-lg-4">City *</label>
+        <input
+          class="col-12 col-md-12 col-lg-7"
+          type="text"
+          id="city"
+          required
+        />
+      </div>
+      <div class="row mt-1">
+        <label class="col-12 col-md-12 col-lg-4">Post Code</label>
+        <input class="col-12 col-md-12 col-lg-7" type="text" id="postcode" />
+      </div>
+      <div class="row mt-1">
+        <label class="col-12 col-md-12 col-lg-4">Phone Number *</label>
+        <input
+          class="col-12 col-md-12 col-lg-7"
+          type="text"
+          id="phonenumber"
+          required
+        />
+      </div>
+      <div class="row mt-1">
+        <label class="col-12 col-md-12 col-lg-4">Email *</label>
+        <input
+          class="col-12 col-md-12 col-lg-7"
+          type="text"
+          id="email"
+          required
+        />
+      </div>
     </>
   );
 }
