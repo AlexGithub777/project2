@@ -1,14 +1,39 @@
-//Function Component
+import React from "react";
+import { useLocation } from "react-router-dom";
+
 function Invoice() {
-  //Component UI: HTML Rendering
-  return (
-    <>
-      <div style={{ minHeight: "60vh" }}>
-        <h1>Booking Sheet</h1>
-      </div>
-    </>
-  );
+    // Use the useLocation hook to access the location object
+    const location = useLocation();
+
+    // Extract the data from the location state
+    const { bond, serviceFee, totalCost, gst, totalGST, customerDetails } =
+        location.state;
+
+    return (
+        <div>
+            <h2>Invoice</h2>
+            <div>
+                <h3>Customer Details:</h3>
+                <p>Title: {customerDetails.title}</p>
+                <p>First Name: {customerDetails.firstName}</p>
+                <p>Last Name: {customerDetails.lastName}</p>
+                <p>Street: {customerDetails.street}</p>
+                <p>Suburb: {customerDetails.suburb}</p>
+                <p>City: {customerDetails.city}</p>
+                <p>Post Code: {customerDetails.postCode}</p>
+                <p>Phone Number: {customerDetails.phoneNumber}</p>
+                <p>Email: {customerDetails.email}</p>
+            </div>
+            <div>
+                <h3>Cost Details:</h3>
+                <p>Bond: ${bond}</p>
+                <p>Service Fee: ${serviceFee}</p>
+                <p>Total Cost: ${totalCost}</p>
+                <p>GST: ${gst}</p>
+                <p>Total (+GST): ${totalGST}</p>
+            </div>
+        </div>
+    );
 }
 
-//Export this component to the entire app, can be re-used or hooked into other Components
 export default Invoice;
