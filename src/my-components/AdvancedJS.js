@@ -1,88 +1,93 @@
-// Function Component
-import React, { useState } from "react"; // Import React and useState
+//Import all dependencies, other Components
+import { useState } from "react";
+import Demo1 from "./Demo1";
 
+//Function Component
 function AdvancedJS() {
-  // Define a state variable to track the clicked button
-  const [clickedButton, setClickedButton] = useState(null);
-
-  // Define a function to toggle the clicked button
-  const toggleDemo = (demoNumber) => {
-    setClickedButton(demoNumber);
+  //State
+  const [clickedButton, setClickedButton] = useState(0);
+  const toggleDemo = (index) => {
+    setClickedButton(index);
   };
-
-  // Component UI: HTML Rendering
+  //Component UI: HTML Rendering
   return (
     <>
       <div style={{ minHeight: "60vh" }}>
-        <div className="row mt-2 p-0">
-          {/*col 1*/}
-          <div className="col-12 col-md-2 bg-primary">
-            <div className="row"></div>
-            <button
-              className="col-6 col-md-12 btn btn-outline-warning mb-1"
-              onClick={() => toggleDemo(1)}
-            >
-              Demo 1
-            </button>
-            <button
-              className="col-6 col-md-12 btn btn-outline-warning mb-1"
-              onClick={() => toggleDemo(2)}
-            >
-              Demo 2
-            </button>
-            <button
-              className="col-6 col-md-12 btn btn-outline-warning mb-1"
-              onClick={() => toggleDemo(3)}
-            >
-              Demo 3
-            </button>
-            <button
-              className="col-6 col-md-12 btn btn-outline-warning mb-1"
-              onClick={() => toggleDemo(4)}
-            >
-              Demo 4
-            </button>
-            <button
-              className="col-6 col-md-12 btn btn-outline-warning mb-1"
-              onClick={() => toggleDemo(5)}
-            >
-              Demo 5
-            </button>
+        {/*BUTTONS AND DEMOS*/}
+        <div class="row mt-2 p-0">
+          {/*Column 1 */}
+          <div class="col-12 col-md-2 bg-primary ">
+            <div class="row">
+              <button
+                class="col-6 col-md-12 btn btn-outline-warning mb-1"
+                onClick={() => toggleDemo(1)}
+              >
+                DEMO-1{" "}
+              </button>
+              <button
+                class="col-6 col-md-12 btn btn-outline-warning mb-1"
+                onClick={() => toggleDemo(2)}
+              >
+                DEMO-2{" "}
+              </button>
+              <button
+                class="col-6 col-md-12 btn btn-outline-warning mb-1"
+                onClick={() => toggleDemo(3)}
+              >
+                DEMO-3{" "}
+              </button>
+              <button
+                class="col-6 col-md-12 btn btn-outline-warning mb-1"
+                onClick={() => toggleDemo(4)}
+              >
+                DEMO-4{" "}
+              </button>
+              <button
+                class="col-6 col-md-12 btn btn-outline-warning mb-1"
+                onClick={() => toggleDemo(5)}
+              >
+                DEMO-5{" "}
+              </button>
+            </div>
           </div>
-
-          {/* col 2*/}
-          <div className="col-12 col-md-8 bg-secondary">
-            <div className="row" style={{ minHeight: "50vh" }}>
+          {/*Column 2*/}
+          <div class="col-12 col-md-10 bg-secondary ">
+            <div class="row" style={{ minHeight: "50vh" }}>
               <div
-                className="col-12"
+                class="col-12"
                 style={{ display: clickedButton === 1 ? "block" : "none" }}
               >
-                Component DEMO1
-              </div>
+                <Demo1 />{" "}
+              </div>{" "}
+              {/*Demo 1 */}
               <div
-                className="col-12"
+                class="col-12"
                 style={{ display: clickedButton === 2 ? "block" : "none" }}
               >
-                Component DEMO2
-              </div>
+                COMPONENT DEMO2{" "}
+              </div>{" "}
+              {/*Demo 2 */}
               <div
-                className="col-12"
+                class="col-12"
                 style={{ display: clickedButton === 3 ? "block" : "none" }}
               >
-                Component DEMO3
-              </div>
+                COMPONENT DEMO3{" "}
+              </div>{" "}
+              {/*Demo 3 */}
               <div
-                className="col-12"
+                class="col-12"
                 style={{ display: clickedButton === 4 ? "block" : "none" }}
               >
-                Component DEMO4
-              </div>
+                COMPONENT DEMO4{" "}
+              </div>{" "}
+              {/*Demo 4 */}
               <div
-                className="col-12"
+                class="col-12"
                 style={{ display: clickedButton === 5 ? "block" : "none" }}
               >
-                Component DEMO5
-              </div>
+                COMPONENT DEMO5{" "}
+              </div>{" "}
+              {/*Demo 5 */}
             </div>
           </div>
         </div>
@@ -91,5 +96,5 @@ function AdvancedJS() {
   );
 }
 
-// Export this component to the entire app, can be re-used or hooked into other Components
+//Export this component to the entire app, can be re-used or hooked into other Components
 export default AdvancedJS;
