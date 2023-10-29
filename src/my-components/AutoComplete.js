@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 
-const AutoComplete = ({ updateCustomerDetails }, { customerDetails }) => {
+const AutoComplete = ({ updateCustomerDetails }) => {
     const autoCompleteRef = useRef();
     const inputRef = useRef();
     const [selectedPlace, setSelectedPlace] = useState({});
