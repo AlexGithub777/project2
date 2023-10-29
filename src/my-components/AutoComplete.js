@@ -126,6 +126,7 @@ const AutoComplete = ({ updateCustomerDetails }) => {
                     }
                     onChange={updateAddressComponents}
                     required
+                    readOnly
                 />
             </div>
             <div class="row mt-1">
@@ -142,6 +143,7 @@ const AutoComplete = ({ updateCustomerDetails }) => {
                     }
                     onChange={updateAddressComponents}
                     required
+                    readOnly
                 />
             </div>
             <div class="row mt-1">
@@ -157,6 +159,7 @@ const AutoComplete = ({ updateCustomerDetails }) => {
                         )?.long_name || ""
                     }
                     onChange={updateAddressComponents}
+                    readOnly
                 />
             </div>
             <div class="row mt-1">
@@ -173,6 +176,7 @@ const AutoComplete = ({ updateCustomerDetails }) => {
                     }
                     onChange={updateAddressComponents}
                     required
+                    readOnly
                 />
             </div>
             <div class="row mt-1">
@@ -188,6 +192,7 @@ const AutoComplete = ({ updateCustomerDetails }) => {
                         )?.long_name || ""
                     }
                     onChange={updateAddressComponents}
+                    readOnly
                 />
             </div>
         </div>
