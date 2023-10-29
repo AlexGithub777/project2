@@ -1,12 +1,15 @@
 import React, { useState } from "react";
+import AutoComplete from "./AutoComplete";
 
-//Function Component
 function FormCustomerDetail(props) {
+    const [selectedPlace, setSelectedPlace] = useState({});
+
     const [customerDetails, setCustomerDetails] = useState({
-        title: "Mr",
+        title: "",
         firstName: "",
         lastName: "",
-        street: "",
+        streetNum: "",
+        streetName: "",
         suburb: "",
         city: "",
         postCode: "",
@@ -14,15 +17,26 @@ function FormCustomerDetail(props) {
         email: "",
     });
 
-    const handleInputChange = (e) => {
+    const updateCustomerDetails = (updatedDetails) => {
+        // Merge the new customer details with the existing ones
+        setCustomerDetails((prevCustomerDetails) => ({
+            ...prevCustomerDetails,
+            ...updatedDetails,
+        }));
+    };
+
+    const handleCustomerDetailsChange = (e) => {
         const { name, value } = e.target;
-        // Update the state with the new value and immediately pass it to the parent component
-        const updatedCustomerDetails = {
-            ...customerDetails,
-            [name]: value,
-        };
-        setCustomerDetails(updatedCustomerDetails);
-        props.onCustomerDetailsChange(updatedCustomerDetails);
+        // Update the state based on the input field's name
+        setCustomerDetails((prevDetails) => {
+            const updatedDetails = {
+                ...prevDetails,
+                [name]: value,
+            };
+            console.log("Updated Customer Details:", updatedDetails);
+            props.onCustomerDetailsChange(updatedDetails);
+            return updatedDetails;
+        });
     };
 
     const [customerType, setCustomerType] = useState("customer");
@@ -75,10 +89,16 @@ function FormCustomerDetail(props) {
             {/*Details*/}
             <div class="row mt-2">
                 <label class="col-12 col-md-12 col-lg-4">Title: *</label>
-                <select class="col-12 col-md-12 col-lg-7">
-                    <option value="Mr" selected>
-                        Mr
+                <select
+                    name="title"
+                    onChange={handleCustomerDetailsChange}
+                    class="col-12 col-md-12 col-lg-7"
+                    required
+                >
+                    <option value="" disabled selected>
+                        Select a title
                     </option>
+                    <option value="Mr">Mr</option>
                     <option value="Mrs">Mrs</option>
                     <option value="Ms">Ms</option>
                     <option value="Miss">Miss</option>
@@ -91,7 +111,7 @@ function FormCustomerDetail(props) {
                     class="col-12 col-md-12 col-lg-7"
                     type="text"
                     id="fname"
-                    onChange={handleInputChange} // Handle input changes
+                    onChange={handleCustomerDetailsChange} // Handle input changes
                     name="firstName"
                     required
                 />
@@ -103,52 +123,16 @@ function FormCustomerDetail(props) {
                     type="text"
                     id="lname"
                     name="lastName"
-                    onChange={handleInputChange} // Handle input changes
+                    onChange={handleCustomerDetailsChange} // Handle input changes
                     required
                 />
             </div>
-            <div class="row mt-1">
-                <label class="col-12 col-md-12 col-lg-4">Street: *</label>
-                <input
-                    class="col-12 col-md-12 col-lg-7"
-                    type="text"
-                    id="street"
-                    name="street"
-                    onChange={handleInputChange} // Handle input changes
-                    required
-                />
-            </div>
-            <div class="row mt-1">
-                <label class="col-12 col-md-12 col-lg-4">Suburb:</label>
-                <input
-                    class="col-12 col-md-12 col-lg-7"
-                    type="text"
-                    id="suburb"
-                    name="suburb"
-                    onChange={handleInputChange} // Handle input changes
-                />
-            </div>
-            <div class="row mt-1">
-                <label class="col-12 col-md-12 col-lg-4">City: *</label>
-                <input
-                    class="col-12 col-md-12 col-lg-7"
-                    type="text"
-                    id="city"
-                    name="city"
-                    onChange={handleInputChange} // Handle input changes
-                    required
-                />
-            </div>
-            <div class="row mt-1">
-                <label class="col-12 col-md-12 col-lg-4">Post Code:</label>
-                <input
-                    class="col-12 col-md-12 col-lg-7"
-                    type="text"
-                    id="postcode"
-                    name="postCode"
-                    onChange={handleInputChange} // Handle input changes
-                />
-            </div>
+            <AutoComplete
+                selectedPlace={selectedPlace}
+                setSelectedPlace={setSelectedPlace}
+                updateCustomerDetails={updateCustomerDetails}
+                customerDetails={customerDetails} // Pass customerDetails as a prop
+            />
             <div class="row mt-1">
                 <label class="col-12 col-md-12 col-lg-4">Phone Number: *</label>
                 <input
@@ -156,7 +140,7 @@ function FormCustomerDetail(props) {
                     type="text"
                     id="phonenumber"
                     name="phoneNumber"
-                    onChange={handleInputChange} // Handle input changes
+                    onChange={handleCustomerDetailsChange} // Handle input changes
                     required
                 />
             </div>
@@ -167,7 +151,7 @@ function FormCustomerDetail(props) {
                     type="text"
                     id="email"
                     name="email"
-                    onChange={handleInputChange} // Handle input changes
+                    onChange={handleCustomerDetailsChange} // Handle input changes
                     required
                 />
             </div>

@@ -1,13 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
-//Function Component
 function FormRepairDetail(props) {
     const [warranty, setWarranty] = useState(false);
+    const [uploadedImage, setUploadedImage] = useState(null);
+    const fileInputRef = useRef(null); // Create a ref for the file input
+    const [uploadedFileName, setUploadedFileName] = useState(""); // New state for file name
 
-    // Function to handle changes in the warranty status
     const handleWarrantyChange = (e) => {
         setWarranty(e.target.checked);
-        props.onWarrantyChange(e.target.checked); // Send the warranty status to the parent
+        props.onWarrantyChange(e.target.checked);
+    };
+
+    const handleImageUpload = (event) => {
+        const file = event.target.files[0];
+
+        if (file) {
+            setUploadedFileName(file.name); // Set the uploaded file name
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                setUploadedImage(e.target.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
+    const removeImage = () => {
+        setUploadedImage(null);
+        setUploadedFileName(""); // Clear the file name
+        fileInputRef.current.value = ""; // Clear the file input's value
     };
 
     //Component UI: HTML Rendering
@@ -117,6 +137,44 @@ function FormRepairDetail(props) {
                     required
                 ></textarea>
             </div>
+            {/* Add the image upload input */}
+            <div className="row mt-2">
+                <label className="col-12 col-md-12 col-lg-4">
+                    Upload Image
+                </label>
+                <div
+                    className="col-12 col-md-12 col-lg-7"
+                    style={{ display: "flex", alignItems: "center" }}
+                >
+                    <button
+                        onClick={() => fileInputRef.current.click()}
+                        style={{ cursor: "pointer" }}
+                    >
+                        Choose File
+                    </button>
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageUpload}
+                        ref={fileInputRef}
+                        style={{ display: "none" }}
+                    />
+                </div>
+            </div>
+            {uploadedImage && (
+                <div className="row mt-2">
+                    <div className="col-12 col-md-12 col-lg-7">
+                        <p>File Name: {uploadedFileName}</p>{" "}
+                        {/* Display the file name */}
+                        <img
+                            src={uploadedImage}
+                            alt="Uploaded Image"
+                            style={{ maxWidth: "100%", maxHeight: "300px" }}
+                        />
+                        <button onClick={removeImage}>Remove Image</button>
+                    </div>
+                </div>
+            )}
         </>
     );
 }

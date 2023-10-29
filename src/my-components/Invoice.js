@@ -17,7 +17,8 @@ function Invoice() {
                 <p>Title: {customerDetails.title}</p>
                 <p>First Name: {customerDetails.firstName}</p>
                 <p>Last Name: {customerDetails.lastName}</p>
-                <p>Street: {customerDetails.street}</p>
+                <p>Street Number: {customerDetails.streetNum}</p>
+                <p>Street Name: {customerDetails.streetName}</p>
                 <p>Suburb: {customerDetails.suburb}</p>
                 <p>City: {customerDetails.city}</p>
                 <p>Post Code: {customerDetails.postCode}</p>

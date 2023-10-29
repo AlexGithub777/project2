@@ -1,154 +1,138 @@
-//Import all dependencies, other Components
-import { useState } from "react";
+import React, { useState } from "react";
 
-//Function Component
+const componentStyles = {
+    dropContainer: {
+        border: "2px solid black",
+        backgroundColor: "white",
+        padding: "10px",
+        margin: "10px",
+        minHeight: "100px",
+    },
+    courtesyItem: {
+        border: "1px solid black",
+        backgroundColor: "white",
+        margin: "5px",
+        padding: "5px",
+        cursor: "pointer",
+    },
+    selected: {
+        backgroundColor: "lightgray",
+    },
+    selectedItems: {
+        marginTop: "20px",
+    },
+    selectedItem: {
+        border: "1px solid black",
+        backgroundColor: "lightgray",
+        margin: "5px",
+        padding: "5px",
+        display: "inline-block",
+        cursor: "pointer",
+    },
+};
+
 function FormCourtesyPhone({ passDataToParent }) {
-    //"passDataToParent" is a callback function: function passDataToParent(value)
-    //The callback function is to change a piece of the state that is a part of the parent component.
+    const [courtesyList] = useState([
+        { id: 1, type: "phone", name: "iPhone", bond: 275 },
+        { id: 2, type: "phone", name: "Samsung Galaxy", bond: 100 },
+        { id: 3, type: "phone", name: "Nokia", bond: 100 },
+        { id: 4, type: "charger", name: "iPhone Charger", bond: 30 },
+        { id: 5, type: "charger", name: "Samsung Charger", bond: 30 },
+        { id: 6, type: "charger", name: "Nokia Charger", bond: 30 },
+    ]);
 
-    //Assume there is a list of courtesy items as below
-    let courtesyList = [
-        { id: 0, type: "none", name: "none", bond: 0 },
-        { id: 1, type: "phone", name: "iphone", bond: 275 },
-        { id: 2, type: "phone", name: "samsung galaxy", bond: 100 },
-        { id: 3, type: "phone", name: "nokia", bond: 100 },
-        { id: 4, type: "charger", name: "iphone charger", bond: 30 },
-        { id: 5, type: "charger", name: "samsung charger", bond: 30 },
-        { id: 6, type: "charger", name: "nokia charger", bond: 30 },
-    ];
+    const [selectedItems, setSelectedItems] = useState([]);
 
-    //Declare "state" variables
-    const [phoneBorrow, setPhoneBorrow] = useState(0); // 0 = 'none'. phoneBorrow = "id"
-    const [chargerBorrow, setChargerBorrow] = useState(0); // 0 = 'none', ChargerBorrow = "id"
-
-    //Handle "onChange" event
-    let addPhone = (selectedOption) => {
-        selectedOption === "none"
-            ? setPhoneBorrow(0)
-            : setPhoneBorrow(Number(selectedOption));
-        //Update totalBond
-        let updateId = 0;
-        selectedOption === "none"
-            ? (updateId = 0)
-            : (updateId = Number(selectedOption));
-        let updateBond =
-            courtesyList.filter((item) => {
-                return item.id === updateId;
-            })[0].bond +
-            courtesyList.filter((item) => {
-                return item.id === chargerBorrow;
-            })[0].bond;
-        //Send data upto Parent by calling callback function "passDataToParent"
-        passDataToParent(updateBond); //Child1 (FormCourtesyPhone)
-    };
-    let addCharger = (selectedOption) => {
-        selectedOption === "none"
-            ? setChargerBorrow(0)
-            : setChargerBorrow(Number(selectedOption));
-        //Update totalBond
-        let updateId = 0;
-        selectedOption === "none"
-            ? (updateId = 0)
-            : (updateId = Number(selectedOption));
-        let updateBond =
-            courtesyList.filter((item) => {
-                return item.id === phoneBorrow;
-            })[0].bond +
-            courtesyList.filter((item) => {
-                return item.id === updateId;
-            })[0].bond;
-        //Send data upto Parent by calling callback function "passDataToParent"
-        passDataToParent(updateBond); //Child1 (FormCourtesyPhone)
+    const handleDragStart = (e, item) => {
+        e.dataTransfer.setData("text/plain", item.id.toString());
     };
 
-    //--------------------------------
-    //Component UI: HTML Rendering
+    const handleDrop = (e) => {
+        e.preventDefault();
+        const itemId = e.dataTransfer.getData("text/plain");
+        const selectedItem = courtesyList.find(
+            (item) => item.id === parseInt(itemId, 10)
+        );
+
+        // Check if the selected item is already in the array
+        if (
+            selectedItem &&
+            !selectedItems.some((item) => item.id === selectedItem.id)
+        ) {
+            setSelectedItems([...selectedItems, selectedItem]);
+        }
+    };
+
+    const handleDragOver = (e) => {
+        e.preventDefault();
+    };
+
+    const removeItem = (item) => {
+        const updatedItems = selectedItems.filter(
+            (selectedItem) => selectedItem.id !== item.id
+        );
+        setSelectedItems(updatedItems);
+    };
+
+    // Calculate total bond whenever selected items change
+    const totalBond = selectedItems.reduce(
+        (total, item) => total + item.bond,
+        0
+    );
+
+    // Notify the parent component about the updated total bond
+    passDataToParent(totalBond);
+
     return (
-        <>
+        <div>
             <h2>Courtesy Phone</h2>
-            {/*Item types*/}
-            <h4>Choose a phone: </h4>
-            <div class="row mt-2 ms-3">
-                <label class="col-12 col-md-12 col-lg-4">Item Type: </label>
-                <select
-                    class="col-12 col-md-12 col-lg-7"
-                    id="phoneList"
-                    onChange={(selected) => addPhone(selected.target.value)}
-                >
-                    <option value="none" selected>
-                        None
-                    </option>
-                    <option value="1">iPhone</option>
-                    <option value="2">Samsung Galaxy</option>
-                    <option value="3">Nokia</option>
-                </select>
-            </div>
-            <h4>Choose a charger: </h4>
-            <div class="row mt-2 ms-3">
-                <label class="col-12 col-md-12 col-lg-4">Item Type: </label>
-                <select
-                    class="col-12 col-md-12 col-lg-7"
-                    id="chargerList"
-                    onChange={(selected) => addCharger(selected.target.value)}
-                >
-                    <option value="none" selected>
-                        None
-                    </option>
-                    <option value="4">iPhone Charger</option>
-                    <option value="5">Samsung Charger</option>
-                    <option value="6">Nokia Charger</option>
-                </select>
-            </div>
+            <p style={{ color: "yellow" }}>
+                You can select a maximum of 1 unit per item.
+            </p>
 
-            {/*Table of added Courtesy items*/}
-            <div class="row mt-2 ms-3 me-3 bg-white">
-                <table class="table table-bordered" id="borrowItems">
-                    <tr>
-                        <td>Item</td>
-                        <td>Cost</td>
-                    </tr>
-
-                    {/*Display all items in the state "borrowItems" in the table  */}
-                    {phoneBorrow === 0 ? null : (
-                        <tr>
-                            <td>
-                                {
-                                    courtesyList.filter((item) => {
-                                        return item.id === phoneBorrow;
-                                    })[0].name
-                                }
-                            </td>{" "}
-                            <td>
-                                {
-                                    courtesyList.filter((item) => {
-                                        return item.id === phoneBorrow;
-                                    })[0].bond
-                                }
-                            </td>
-                        </tr>
-                    )}
-                    {chargerBorrow === 0 ? null : (
-                        <tr>
-                            <td>
-                                {
-                                    courtesyList.filter((item) => {
-                                        return item.id === chargerBorrow;
-                                    })[0].name
-                                }
-                            </td>{" "}
-                            <td>
-                                {
-                                    courtesyList.filter((item) => {
-                                        return item.id === chargerBorrow;
-                                    })[0].bond
-                                }
-                            </td>
-                        </tr>
-                    )}
-                </table>
+            <div className="row mt-2 ms-3">
+                {courtesyList.map((item) => (
+                    <div
+                        style={componentStyles.courtesyItem}
+                        key={item.id}
+                        draggable
+                        onDragStart={(e) => handleDragStart(e, item)}
+                        className={`courtesy-item ${
+                            selectedItems.includes(item) ? "selected" : ""
+                        }`}
+                    >
+                        {item.name} - Bond: ${item.bond}
+                    </div>
+                ))}
             </div>
-        </>
+            <div
+                className="drop-container"
+                onDrop={handleDrop}
+                onDragOver={handleDragOver}
+                style={componentStyles.dropContainer}
+            >
+                <h4>Drag and drop items here:</h4>
+                <div
+                    className="selected-items"
+                    style={componentStyles.selectedItems}
+                >
+                    <h4>Selected items:</h4>
+                    {selectedItems.map((item) => (
+                        <div
+                            key={item.id}
+                            className="selected-item"
+                            style={componentStyles.selectedItem}
+                        >
+                            {item.name} - Bond: ${item.bond}
+                            <button onClick={() => removeItem(item)}>
+                                Remove
+                            </button>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
     );
 }
-//Export this component to the entire app, can be re-used or hooked into other Components
+
 export default FormCourtesyPhone;

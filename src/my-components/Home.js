@@ -23,10 +23,25 @@ function Home() {
     const [gst, setGst] = useState(0);
     const [totalGST, setTotalGST] = useState(0);
 
-    const [customerDetails, setCustomerDetails] = useState(null);
+    const [customerDetails, setCustomerDetails] = useState({
+        title: "",
+        firstName: "",
+        lastName: "",
+        streetNum: "",
+        streetName: "",
+        suburb: "",
+        city: "",
+        postCode: "",
+        phoneNumber: "",
+        email: "",
+    });
 
     const handleCustomerDetailsChange = (newCustomerDetails) => {
-        setCustomerDetails(newCustomerDetails);
+        // Merge the new customer details with the existing ones
+        setCustomerDetails((prevCustomerDetails) => ({
+            ...prevCustomerDetails,
+            ...newCustomerDetails,
+        }));
     };
 
     // Inside the Home component
@@ -62,6 +77,15 @@ function Home() {
     const onSubmit = async (event) => {
         event.preventDefault();
         try {
+            console.log("Data to be passed to Invoice:", {
+                bond,
+                serviceFee,
+                totalCost,
+                gst,
+                totalGST,
+                customerDetails,
+            });
+
             // Open the "Invoice" component and pass the required props
             navigate("/invoice", {
                 state: {
@@ -100,7 +124,7 @@ function Home() {
                             onCustomerDetailsChange={
                                 handleCustomerDetailsChange
                             }
-                            /*onFormDataChange={updateFormData}*/
+                            customerDetails={customerDetails}
                         />
                     </div>
 
@@ -114,6 +138,7 @@ function Home() {
                     >
                         <FormRepairDetail
                             onWarrantyChange={handleWarrantyChange}
+
                             /*onFormDataChange={updateFormData}*/
                         />{" "}
                         {/* Pass callback function */}

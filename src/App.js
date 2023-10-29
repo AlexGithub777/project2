@@ -9,23 +9,23 @@ import Invoice from "./my-components/Invoice"; //import Invoice Component
 
 //Function Component "App"
 function App() {
-  //Component UI: HTML Rendering
-  return (
-    <>
-      {/*React Fragment: serve as parent component in JSX and doesn't add anything to the DOM*/}
+    //Component UI: HTML Rendering
+    return (
+        <>
+            {/*React Fragment: serve as parent component in JSX and doesn't add anything to the DOM*/}
 
-      <Router>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/advancedJS" element={<AdvancedJS />} />
-          <Route path="/faq" element={<FAQ />} />
-          <Route path="/invoice" element={<Invoice />} />
-        </Routes>
-        <Footer />
-      </Router>
-    </>
-  );
+            <Router>
+                <Header />
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/advancedJS" element={<AdvancedJS />} />
+                    <Route path="/faq" element={<FAQ />} />
+                    <Route path="/invoice" element={<Invoice />} />
+                </Routes>
+                <Footer />
+            </Router>
+        </>
+    );
 }
 
 //Export this component to the entire app, can be re-used or hooked into other Components
