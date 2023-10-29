@@ -42,7 +42,7 @@ function FormCost(props) {
                     class="col-12 col-md-12 col-lg-7"
                     type="number"
                     value={bond}
-                    onlyread
+                    readOnly
                 />
             </div>
             <div class="row mt-1  ms-3">
@@ -53,7 +53,7 @@ function FormCost(props) {
                     class="col-12 col-md-12 col-lg-7"
                     type="number"
                     value={serviceFee}
-                    onlyread
+                    readOnly
                 />
             </div>
             <div class="row mt-1  ms-3">
@@ -62,7 +62,7 @@ function FormCost(props) {
                     class="col-12 col-md-12 col-lg-7"
                     type="number"
                     value={totalCost}
-                    onlyread
+                    readOnly
                 />
             </div>
             <div class="row mt-1 ms-3">
@@ -71,7 +71,7 @@ function FormCost(props) {
                     class="col-12 col-md-12 col-lg-7"
                     type="number"
                     value={gst}
-                    onlyread
+                    readOnly
                 />
             </div>
             <div class="row mt-1 ms-3">
@@ -80,7 +80,7 @@ function FormCost(props) {
                     class="col-12 col-md-12 col-lg-7"
                     type="number"
                     value={totalGST}
-                    onlyread
+                    readOnly
                 />
             </div>
         </>

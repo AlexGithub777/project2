@@ -15,36 +15,36 @@ function AdvancedJS() {
         <>
             <div style={{ minHeight: "60vh" }}>
                 {/*BUTTONS AND DEMOS*/}
-                <div class="row mt-2 p-0">
+                <div className="row mt-2 p-0">
                     {/*Column 1 */}
-                    <div class="col-12 col-md-2 bg-primary ">
-                        <div class="row">
+                    <div className="col-12 col-md-2 bg-primary ">
+                        <div className="row">
                             <button
-                                class="col-6 col-md-12 btn btn-outline-warning mb-1"
+                                className="col-6 col-md-12 btn btn-outline-warning mb-1"
                                 onClick={() => toggleDemo(1)}
                             >
                                 DEMO-1{" "}
                             </button>
                             <button
-                                class="col-6 col-md-12 btn btn-outline-warning mb-1"
+                                className="col-6 col-md-12 btn btn-outline-warning mb-1"
                                 onClick={() => toggleDemo(2)}
                             >
                                 DEMO-2{" "}
                             </button>
                             <button
-                                class="col-6 col-md-12 btn btn-outline-warning mb-1"
+                                className="col-6 col-md-12 btn btn-outline-warning mb-1"
                                 onClick={() => toggleDemo(3)}
                             >
                                 DEMO-3{" "}
                             </button>
                             <button
-                                class="col-6 col-md-12 btn btn-outline-warning mb-1"
+                                className="col-6 col-md-12 btn btn-outline-warning mb-1"
                                 onClick={() => toggleDemo(4)}
                             >
                                 DEMO-4{" "}
                             </button>
                             <button
-                                class="col-6 col-md-12 btn btn-outline-warning mb-1"
+                                className="col-6 col-md-12 btn btn-outline-warning mb-1"
                                 onClick={() => toggleDemo(5)}
                             >
                                 DEMO-5{" "}
@@ -52,8 +52,8 @@ function AdvancedJS() {
                         </div>
                     </div>
                     {/*Column 2*/}
-                    <div class="col-12 col-md-10 bg-secondary ">
-                        <div class="row" style={{ minHeight: "50vh" }}>
+                    <div className="col-12 col-md-10 bg-secondary ">
+                        <div className="row" style={{ minHeight: "50vh" }}>
                             {/* Display Statement of Authenticity when no button is clicked */}
                             {clickedButton === 0 && (
                                 <div className="col-12">
@@ -84,7 +84,7 @@ function AdvancedJS() {
                                 </div>
                             )}
                             <div
-                                class="col-12"
+                                className="col-12"
                                 style={{
                                     display:
                                         clickedButton === 1 ? "block" : "none",
@@ -94,7 +94,7 @@ function AdvancedJS() {
                             </div>{" "}
                             {/*Demo 1 */}
                             <div
-                                class="col-12"
+                                className="col-12"
                                 style={{
                                     display:
                                         clickedButton === 2 ? "block" : "none",
@@ -104,7 +104,7 @@ function AdvancedJS() {
                             </div>{" "}
                             {/*Demo 2 */}
                             <div
-                                class="col-12"
+                                className="col-12"
                                 style={{
                                     display:
                                         clickedButton === 3 ? "block" : "none",
@@ -114,7 +114,7 @@ function AdvancedJS() {
                             </div>{" "}
                             {/*Demo 3 */}
                             <div
-                                class="col-12"
+                                className="col-12"
                                 style={{
                                     display:
                                         clickedButton === 4 ? "block" : "none",
@@ -124,7 +124,7 @@ function AdvancedJS() {
                             </div>{" "}
                             {/*Demo 4 */}
                             <div
-                                class="col-12"
+                                className="col-12"
                                 style={{
                                     display:
                                         clickedButton === 5 ? "block" : "none",

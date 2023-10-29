@@ -8,20 +8,20 @@ function FormButtons() {
         <>
             <input
                 type="submit"
-                class="btn me-3 text-dark bg-white"
+                className="btn me-3 text-dark bg-white"
                 style={{ width: "5em" }}
                 value="SUBMIT"
             />
             <input
                 type="reset"
-                class="btn me-3 text-dark bg-white"
+                className="btn me-3 text-dark bg-white"
                 style={{ width: "5em" }}
                 value="RESET"
             />
             <Link to="/faq">
                 <input
                     type="button"
-                    class="btn me-3 text-dark bg-white"
+                    className="btn me-3 text-dark bg-white"
                     style={{ width: "5em" }}
                     value="FAQ"
                 />

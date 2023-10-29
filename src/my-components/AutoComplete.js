@@ -39,10 +39,10 @@ const AutoComplete = ({ updateCustomerDetails }) => {
                         case "route":
                             updatedDetails.streetName = component.long_name;
                             break;
-                        case "locality":
+                        case "sublocality_level_1":
                             updatedDetails.suburb = component.long_name;
                             break;
-                        case "administrative_area_level_2":
+                        case "locality":
                             updatedDetails.city = component.long_name;
                             break;
                         case "postal_code":
@@ -99,10 +99,12 @@ const AutoComplete = ({ updateCustomerDetails }) => {
 
     return (
         <div>
-            <div class="row mt-1">
-                <label class="col-12 col-md-12 col-lg-4">Enter address:</label>
+            <div className="row mt-1">
+                <label className="col-12 col-md-12 col-lg-4">
+                    Enter address:
+                </label>
                 <input
-                    class="col-12 col-md-12 col-lg-7"
+                    className="col-12 col-md-12 col-lg-7"
                     name="address"
                     required
                     ref={inputRef}
@@ -110,12 +112,12 @@ const AutoComplete = ({ updateCustomerDetails }) => {
                 />
             </div>
             {/* Display selected address components */}
-            <div class="row mt-1">
-                <label class="col-12 col-md-12 col-lg-4">
+            <div className="row mt-1">
+                <label className="col-12 col-md-12 col-lg-4">
                     Street Number: *
                 </label>
                 <input
-                    class="col-12 col-md-12 col-lg-7"
+                    className="col-12 col-md-12 col-lg-7"
                     type="text"
                     id="streetnum"
                     name="streetNum"
@@ -129,10 +131,12 @@ const AutoComplete = ({ updateCustomerDetails }) => {
                     readOnly
                 />
             </div>
-            <div class="row mt-1">
-                <label class="col-12 col-md-12 col-lg-4">Street Name: *</label>
+            <div className="row mt-1">
+                <label className="col-12 col-md-12 col-lg-4">
+                    Street Name: *
+                </label>
                 <input
-                    class="col-12 col-md-12 col-lg-7"
+                    className="col-12 col-md-12 col-lg-7"
                     type="text"
                     id="streetname"
                     name="streetName"
@@ -146,10 +150,10 @@ const AutoComplete = ({ updateCustomerDetails }) => {
                     readOnly
                 />
             </div>
-            <div class="row mt-1">
-                <label class="col-12 col-md-12 col-lg-4">Suburb:</label>
+            <div className="row mt-1">
+                <label className="col-12 col-md-12 col-lg-4">Suburb:</label>
                 <input
-                    class="col-12 col-md-12 col-lg-7"
+                    className="col-12 col-md-12 col-lg-7"
                     type="text"
                     id="suburb"
                     name="suburb"
@@ -162,10 +166,10 @@ const AutoComplete = ({ updateCustomerDetails }) => {
                     readOnly
                 />
             </div>
-            <div class="row mt-1">
-                <label class="col-12 col-md-12 col-lg-4">City: *</label>
+            <div className="row mt-1">
+                <label className="col-12 col-md-12 col-lg-4">City: *</label>
                 <input
-                    class="col-12 col-md-12 col-lg-7"
+                    className="col-12 col-md-12 col-lg-7"
                     type="text"
                     id="city"
                     name="city"
@@ -179,10 +183,10 @@ const AutoComplete = ({ updateCustomerDetails }) => {
                     readOnly
                 />
             </div>
-            <div class="row mt-1">
-                <label class="col-12 col-md-12 col-lg-4">Post Code:</label>
+            <div className="row mt-1">
+                <label className="col-12 col-md-12 col-lg-4">Post Code:</label>
                 <input
-                    class="col-12 col-md-12 col-lg-7"
+                    className="col-12 col-md-12 col-lg-7"
                     type="text"
                     id="postcode"
                     name="postCode"
