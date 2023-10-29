@@ -149,6 +149,7 @@ function FormRepairDetail(props) {
                     <button
                         onClick={() => fileInputRef.current.click()}
                         style={{ cursor: "pointer" }}
+                        type="button"
                     >
                         Choose File
                     </button>
@@ -168,7 +169,7 @@ function FormRepairDetail(props) {
                         {/* Display the file name */}
                         <img
                             src={uploadedImage}
-                            alt="Uploaded Image"
+                            alt=""
                             style={{ maxWidth: "100%", maxHeight: "300px" }}
                         />
                         <button onClick={removeImage}>Remove Image</button>
