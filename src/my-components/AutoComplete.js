@@ -1,34 +1,46 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, {
+    useRef,
+    useEffect,
+    useState,
+    useMemo,
+    useCallback,
+} from "react";
 
 const AutoComplete = ({ updateCustomerDetails }) => {
     const autoCompleteRef = useRef();
     const inputRef = useRef();
     const [selectedPlace, setSelectedPlace] = useState({});
 
-    const options = {
-        componentRestrictions: { country: "nz" },
-        fields: ["address_components", "geometry", "icon", "name"],
-        types: ["geocode"], // Restrict to geocode type for street addresses
-    };
-    const updateAddressComponents = (addressComponents) => {
-        if (
-            updateCustomerDetails &&
-            Array.isArray(addressComponents) &&
-            addressComponents.length > 0
-        ) {
-            const updatedDetails = {
-                streetNum: addressComponents[0]?.long_name || "",
-                streetName: addressComponents[1]?.long_name || "",
-                suburb: addressComponents[2]?.long_name || "",
-                city: addressComponents[3]?.long_name || "",
-                postCode: addressComponents[6]?.long_name || "",
-            };
+    const options = useMemo(() => {
+        return {
+            componentRestrictions: { country: "nz" },
+            fields: ["address_components", "geometry", "icon", "name"],
+            types: ["geocode"],
+        };
+    }, []);
 
-            updateCustomerDetails(updatedDetails);
-        } else {
-            console.error("Invalid address components:", addressComponents);
-        }
-    };
+    const updateAddressComponents = useCallback(
+        (addressComponents) => {
+            if (
+                updateCustomerDetails &&
+                Array.isArray(addressComponents) &&
+                addressComponents.length > 0
+            ) {
+                const updatedDetails = {
+                    streetNum: addressComponents[0]?.long_name || "",
+                    streetName: addressComponents[1]?.long_name || "",
+                    suburb: addressComponents[2]?.long_name || "",
+                    city: addressComponents[3]?.long_name || "",
+                    postCode: addressComponents[6]?.long_name || "",
+                };
+
+                updateCustomerDetails(updatedDetails);
+            } else {
+                console.error("Invalid address components:", addressComponents);
+            }
+        },
+        [updateCustomerDetails]
+    );
 
     useEffect(() => {
         autoCompleteRef.current = new window.google.maps.places.Autocomplete(
@@ -48,7 +60,7 @@ const AutoComplete = ({ updateCustomerDetails }) => {
                 );
             }
         });
-    }, []);
+    }, [options, updateAddressComponents]);
 
     const isResidentialAddress = (place) => {
         // You can add custom logic to determine if it's a residential address
