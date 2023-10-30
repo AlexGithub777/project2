@@ -21,13 +21,6 @@ function FormRepairDetail(props) {
         }
     };
 
-    const clearUploadedImage = () => {
-        props.setUploadedImage(null);
-        props.setUploadedFileName("");
-        props.fileInput.current.value = "";
-        console.log("working");
-    };
-
     //Component UI: HTML Rendering
     return (
         <>
@@ -187,7 +180,10 @@ function FormRepairDetail(props) {
                             alt=""
                             style={{ maxWidth: "100%", maxHeight: "300px" }}
                         />
-                        <button type="button" onClick={clearUploadedImage}>
+                        <button
+                            type="button"
+                            onClick={props.clearUploadedImage}
+                        >
                             Remove Image
                         </button>
                     </div>

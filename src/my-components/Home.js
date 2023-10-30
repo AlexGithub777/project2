@@ -40,11 +40,17 @@ function Home() {
     const [uploadedImage, setUploadedImage] = useState(null);
     const [uploadedFileName, setUploadedFileName] = useState("");
 
+    const [selectedItems, setSelectedItems] = useState([]);
+
+    // Home.js
+    const clearSelectedItems = () => {
+        setSelectedItems([]);
+    };
+
     const clearUploadedImage = () => {
         setUploadedImage(null); // Clear the uploaded image
         setUploadedFileName(""); // Clear the file name
         fileInput.current.value = ""; // Clear the file input's value
-        console.log("working");
     };
 
     const handleCustomerDetailsChange = (newCustomerDetails) => {
@@ -173,6 +179,8 @@ function Home() {
                         >
                             <FormCourtesyPhone
                                 passDataToParent={updateSharedState}
+                                setSelectedItems={setSelectedItems}
+                                selectedItems={selectedItems}
                                 /*onFormDataChange={updateFormData}*/
                             />{" "}
                             {/* Child1 */}
@@ -207,6 +215,7 @@ function Home() {
                             onSubmit={onSubmit}
                             clearUploadedImage={clearUploadedImage}
                             fileInput={fileInput}
+                            clearSelectedItems={clearSelectedItems}
                         />
                     </div>
                     {/* Render the Invoice component when formData is available */}

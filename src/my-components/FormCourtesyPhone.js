@@ -31,7 +31,11 @@ const componentStyles = {
     },
 };
 
-function FormCourtesyPhone({ passDataToParent }) {
+function FormCourtesyPhone({
+    passDataToParent,
+    setSelectedItems,
+    selectedItems,
+}) {
     const [courtesyList] = useState([
         { id: 1, type: "phone", name: "iPhone", bond: 275 },
         { id: 2, type: "phone", name: "Samsung Galaxy", bond: 100 },
@@ -40,8 +44,6 @@ function FormCourtesyPhone({ passDataToParent }) {
         { id: 5, type: "charger", name: "Samsung Charger", bond: 30 },
         { id: 6, type: "charger", name: "Nokia Charger", bond: 30 },
     ]);
-
-    const [selectedItems, setSelectedItems] = useState([]);
 
     const handleDragStart = (e, item) => {
         e.dataTransfer.setData("text/plain", item.id.toString());

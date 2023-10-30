@@ -1,7 +1,7 @@
 //Import all dependencies, other Components
 import { Link } from "react-router-dom";
 
-function FormButtons({ clearUploadedImage }) {
+function FormButtons({ clearUploadedImage, clearSelectedItems }) {
     const handleReset = () => {
         document.getElementById("streetnum").value = "";
         document.getElementById("streetname").value = "";
@@ -9,6 +9,7 @@ function FormButtons({ clearUploadedImage }) {
         document.getElementById("city").value = "";
         document.getElementById("postcode").value = "";
         clearUploadedImage();
+        clearSelectedItems();
     };
 
     return (
