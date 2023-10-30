@@ -28,6 +28,31 @@ function FormCustomerDetail(props) {
     const handleCustomerDetailsChange = (e) => {
         const { name, value } = e.target;
         // Update the state based on the input field's name
+
+        if (name === "phoneNumber") {
+            // Phone number validation: only numbers, spaces, and ( ), -, + symbols
+            let modifiedValue = value.replace(/[^0-9\s()+-]/g, "");
+            if (modifiedValue !== value) {
+                e.target.value = modifiedValue; // Update the input field with the modified value
+                alert(
+                    "Phone Number only allows for numbers, spaces and ( ), -, + symbols."
+                );
+            }
+        }
+
+        if (name === "firstName" || name === "lastName") {
+            // First Name and Last Name validation
+            let modifiedValue = value.replace(/[^a-zA-Z\s-]/g, "");
+            if (modifiedValue !== value) {
+                e.target.value = modifiedValue; // Update the input field with the modified value
+                const displayName =
+                    name === "firstName" ? "First name" : "Last name";
+                alert(
+                    `${displayName} only allows for alphabetical characters, spaces, and the – symbol.`
+                );
+            }
+        }
+
         setCustomerDetails((prevDetails) => {
             const updatedDetails = {
                 ...prevDetails,
@@ -116,8 +141,6 @@ function FormCustomerDetail(props) {
                     id="fname"
                     onChange={handleCustomerDetailsChange} // Handle input changes
                     name="firstName"
-                    pattern="[a-zA-Z\s\-]+"
-                    title="First Name only allows for alphabetical characters, spaces and the – symbol."
                     required
                 />
             </div>
@@ -131,8 +154,6 @@ function FormCustomerDetail(props) {
                     id="lname"
                     name="lastName"
                     onChange={handleCustomerDetailsChange} // Handle input changes
-                    pattern="[a-zA-Z\s\-]+"
-                    title="Last Name only allows for alphabetical characters, spaces and the – symbol."
                     required
                 />
             </div>
@@ -153,8 +174,6 @@ function FormCustomerDetail(props) {
                     name="phoneNumber"
                     onChange={handleCustomerDetailsChange} // Handle input changes
                     required
-                    pattern="[0-9\s\(\)\-\+]+"
-                    title="Phone Number only allows for numbers, spaces and ( ), -, + symbols"
                 />
             </div>
             <div className="row mt-1">
