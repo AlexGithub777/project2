@@ -60,7 +60,12 @@ function FormRepairDetail(props) {
                     type="date"
                     id="purchaseDate"
                     name="purchaseDate"
-                    max={new Date().toISOString().split("T")[0]} // Purchase date must be before today
+                    max={
+                        new Date(Date.now() + 24 * 60 * 60 * 1000)
+                            .toISOString()
+                            .split("T")[0]
+                    } // Purchase date must be before today
+                    //min={new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString().split("T")[0]}
                     title="Please enter a valid date"
                     required
                     onChange={(e) => {
@@ -76,27 +81,24 @@ function FormRepairDetail(props) {
 
             <div className="row mt-1">
                 <label className="col-12 col-md-12 col-lg-4">
-                    Repair Date *
+                    Repair Date/Time *
                 </label>
                 <input
                     className="col-12 col-md-12 col-lg-7"
-                    type="date"
-                    id="repairDate"
-                    name="repairDate"
-                    title="Please enter a valid date"
+                    type="datetime-local"
+                    id="repairDateTime"
+                    name="repairDateTime"
+                    title="Please enter a valid date and time"
                     onChange={(e) => {
                         const repairDate = new Date(e.target.value);
                         if (isNaN(repairDate.getTime())) {
-                            alert("Please enter a valid date");
+                            alert("Please enter a valid date and time");
                         }
                         handleFieldChange(e);
                     }}
-                    //min={new Date().toISOString().split("T")[0]} // Minimum date is today
-                    min={
-                        new Date(Date.now() + 24 * 60 * 60 * 1000)
-                            .toISOString()
-                            .split("T")[0]
-                    } // Minimum date is one day after today}
+                    min={new Date(Date.now() + 24 * 60 * 60 * 1000)
+                        .toISOString()
+                        .slice(0, 16)} // Minimum date and time is the current date and time
                     required
                 />
             </div>

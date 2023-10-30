@@ -44,7 +44,7 @@ function Home() {
 
     const [repairDetails, setRepairDetails] = useState({
         purchaseDate: "",
-        repairDate: "",
+        repairDateTime: "",
         warranty: false,
         imei: "",
         mobileMake: "",

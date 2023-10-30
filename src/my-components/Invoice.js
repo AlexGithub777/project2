@@ -34,16 +34,33 @@ function Invoice() {
             </div>
             <div>
                 <h3>Repair Details:</h3>
-                <p>Purchase Date: {repairDetails.purchaseDate} </p>
-                <p>Repair Date: {repairDetails.repairDate}</p>
                 <p>
-                    Under Warranty:&nbsp;
-                    <input
-                        type="checkbox"
-                        checked={repairDetails.warranty}
-                        readOnly
-                    />
+                    Purchase Date:{" "}
+                    {new Date(repairDetails.purchaseDate).toLocaleDateString(
+                        "en-NZ",
+                        { day: "2-digit", month: "2-digit", year: "numeric" }
+                    )}
                 </p>
+
+                <p>
+                    Repair Date and Time:{" "}
+                    {new Date(repairDetails.repairDateTime)
+                        .toLocaleString("en-NZ", {
+                            day: "2-digit",
+                            month: "2-digit",
+                            year: "numeric",
+                            hour: "numeric",
+                            minute: "numeric",
+                            hour12: true,
+                        })
+                        .replace(",", " -")}
+                </p>
+
+                <p>
+                    Under Warranty:{" "}
+                    {repairDetails.underWarranty ? "Yes ✓" : "No ✖"}
+                </p>
+
                 <p>IMEI Number: {repairDetails.imei}</p>
                 <p>Device Make: {repairDetails.mobileMake}</p>
                 <p>Model Number: {repairDetails.modelNumber}</p>
