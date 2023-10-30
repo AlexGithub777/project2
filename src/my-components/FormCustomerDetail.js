@@ -143,7 +143,7 @@ function FormCustomerDetail(props) {
                 </label>
                 <input
                     className="col-12 col-md-12 col-lg-7"
-                    type="text"
+                    type="number"
                     id="phonenumber"
                     name="phoneNumber"
                     onChange={handleCustomerDetailsChange} // Handle input changes

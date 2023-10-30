@@ -1,9 +1,15 @@
 //Import all dependencies, other Components
 import { Link } from "react-router-dom";
 
-//Function Component
 function FormButtons() {
-    //Component UI: HTML Rendering
+    const handleReset = () => {
+        document.getElementById("streetnum").value = "";
+        document.getElementById("streetname").value = "";
+        document.getElementById("suburb").value = "";
+        document.getElementById("city").value = "";
+        document.getElementById("postcode").value = "";
+    };
+
     return (
         <>
             <input
@@ -17,6 +23,7 @@ function FormButtons() {
                 className="btn me-3 text-dark bg-white"
                 style={{ width: "5em" }}
                 value="RESET"
+                onClick={handleReset}
             />
             <Link to="/faq">
                 <input

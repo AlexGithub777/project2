@@ -35,18 +35,28 @@ const AutoComplete = ({ updateCustomerDetails }) => {
                     switch (componentType) {
                         case "street_number":
                             updatedDetails.streetNum = component.long_name;
+                            document.getElementById("streetnum").value =
+                                updatedDetails.streetNum;
                             break;
                         case "route":
                             updatedDetails.streetName = component.long_name;
+                            document.getElementById("streetname").value =
+                                updatedDetails.streetName;
                             break;
                         case "sublocality_level_1":
                             updatedDetails.suburb = component.long_name;
+                            document.getElementById("suburb").value =
+                                updatedDetails.suburb;
                             break;
                         case "locality":
                             updatedDetails.city = component.long_name;
+                            document.getElementById("city").value =
+                                updatedDetails.city;
                             break;
                         case "postal_code":
                             updatedDetails.postCode = component.long_name;
+                            document.getElementById("postcode").value =
+                                updatedDetails.postCode;
                             break;
                         default:
                             break;
@@ -61,7 +71,93 @@ const AutoComplete = ({ updateCustomerDetails }) => {
         [updateCustomerDetails]
     );
 
+    const updateCustomerDetailsForStreetNum = useCallback(
+        (value) => {
+            const updatedDetails = {
+                streetNum: value,
+                streetName: document.getElementById("streetname").value,
+                suburb: document.getElementById("suburb").value,
+                city: document.getElementById("city").value,
+                postCode: document.getElementById("postcode").value,
+            };
+            updateCustomerDetails(updatedDetails);
+        },
+        [updateCustomerDetails]
+    );
+
+    const updateCustomerDetailsForStreetName = useCallback(
+        (value) => {
+            const updatedDetails = {
+                streetNum: document.getElementById("streetnum").value,
+                streetName: value,
+                suburb: document.getElementById("suburb").value,
+                city: document.getElementById("city").value,
+                postCode: document.getElementById("postcode").value,
+            };
+            updateCustomerDetails(updatedDetails);
+        },
+        [updateCustomerDetails]
+    );
+
+    const updateCustomerDetailsForCity = useCallback(
+        (value) => {
+            const updatedDetails = {
+                streetNum: document.getElementById("streetnum").value,
+                streetName: document.getElementById("streetname").value,
+                suburb: document.getElementById("suburb").value,
+                city: value,
+                postCode: document.getElementById("postcode").value,
+            };
+            updateCustomerDetails(updatedDetails);
+        },
+        [updateCustomerDetails]
+    );
+
+    const updateCustomerDetailsForSuburb = useCallback(
+        (value) => {
+            const updatedDetails = {
+                streetNum: document.getElementById("streetnum").value,
+                streetName: document.getElementById("streetname").value,
+                suburb: value,
+                city: document.getElementById("city").value,
+                postCode: document.getElementById("postcode").value,
+            };
+            updateCustomerDetails(updatedDetails);
+        },
+        [updateCustomerDetails]
+    );
+
+    const updateCustomerDetailsForPostCode = useCallback(
+        (value) => {
+            const updatedDetails = {
+                streetNum: document.getElementById("streetnum").value,
+                streetName: document.getElementById("streetname").value,
+                suburb: document.getElementById("suburb").value,
+                city: document.getElementById("city").value,
+                postCode: value,
+            };
+            updateCustomerDetails(updatedDetails);
+        },
+        [updateCustomerDetails]
+    );
+
     useEffect(() => {
+        const isResidentialAddress = (place) => {
+            // You can add custom logic to determine if it's a residential address
+            // For example, checking if it has street number and street name
+            const addressComponents = place.address_components;
+            if (addressComponents) {
+                const hasStreetNumber = addressComponents.some((component) =>
+                    component.types.includes("street_number")
+                );
+                const hasStreetName = addressComponents.some((component) =>
+                    component.types.includes("route")
+                );
+                return hasStreetNumber && hasStreetName;
+            }
+            return false;
+        };
+
         autoCompleteRef.current = new window.google.maps.places.Autocomplete(
             inputRef.current,
             options
@@ -79,23 +175,13 @@ const AutoComplete = ({ updateCustomerDetails }) => {
                 );
             }
         });
-    }, [options, updateAddressComponents]);
-
-    const isResidentialAddress = (place) => {
-        // You can add custom logic to determine if it's a residential address
-        // For example, checking if it has street number and street name
-        const addressComponents = place.address_components;
-        if (addressComponents) {
-            const hasStreetNumber = addressComponents.some((component) =>
-                component.types.includes("street_number")
-            );
-            const hasStreetName = addressComponents.some((component) =>
-                component.types.includes("route")
-            );
-            return hasStreetNumber && hasStreetName;
-        }
-        return false;
-    };
+    }, [
+        options,
+        updateAddressComponents,
+        updateCustomerDetails,
+        updateCustomerDetailsForStreetNum,
+        updateCustomerDetailsForStreetName,
+    ]);
 
     return (
         <div>
@@ -106,9 +192,7 @@ const AutoComplete = ({ updateCustomerDetails }) => {
                 <input
                     className="col-12 col-md-12 col-lg-7"
                     name="address"
-                    required
                     ref={inputRef}
-                    onChange={updateAddressComponents}
                 />
             </div>
             {/* Display selected address components */}
@@ -121,14 +205,10 @@ const AutoComplete = ({ updateCustomerDetails }) => {
                     type="text"
                     id="streetnum"
                     name="streetNum"
-                    value={
-                        selectedPlace.address_components?.find((component) =>
-                            component.types.includes("street_number")
-                        )?.long_name || ""
+                    onChange={(e) =>
+                        updateCustomerDetailsForStreetNum(e.target.value)
                     }
-                    onChange={updateAddressComponents}
                     required
-                    readOnly
                 />
             </div>
             <div className="row mt-1">
@@ -140,14 +220,10 @@ const AutoComplete = ({ updateCustomerDetails }) => {
                     type="text"
                     id="streetname"
                     name="streetName"
-                    value={
-                        selectedPlace.address_components?.find((component) =>
-                            component.types.includes("route")
-                        )?.long_name || ""
+                    onChange={(e) =>
+                        updateCustomerDetailsForStreetName(e.target.value)
                     }
-                    onChange={updateAddressComponents}
                     required
-                    readOnly
                 />
             </div>
             <div className="row mt-1">
@@ -157,13 +233,10 @@ const AutoComplete = ({ updateCustomerDetails }) => {
                     type="text"
                     id="suburb"
                     name="suburb"
-                    value={
-                        selectedPlace.address_components?.find((component) =>
-                            component.types.includes("sublocality_level_1")
-                        )?.long_name || ""
+                    // Add an onChange handler for suburb field
+                    onChange={(e) =>
+                        updateCustomerDetailsForSuburb(e.target.value)
                     }
-                    onChange={updateAddressComponents}
-                    readOnly
                 />
             </div>
             <div className="row mt-1">
@@ -172,31 +245,25 @@ const AutoComplete = ({ updateCustomerDetails }) => {
                     className="col-12 col-md-12 col-lg-7"
                     type="text"
                     id="city"
-                    name="city"
-                    value={
-                        selectedPlace.address_components?.find((component) =>
-                            component.types.includes("locality")
-                        )?.long_name || ""
+                    name="City"
+                    // Add an onChange handler for suburb field
+                    onChange={(e) =>
+                        updateCustomerDetailsForCity(e.target.value)
                     }
-                    onChange={updateAddressComponents}
                     required
-                    readOnly
                 />
             </div>
             <div className="row mt-1">
                 <label className="col-12 col-md-12 col-lg-4">Post Code:</label>
                 <input
                     className="col-12 col-md-12 col-lg-7"
-                    type="text"
+                    type="number"
                     id="postcode"
                     name="postCode"
-                    value={
-                        selectedPlace.address_components?.find((component) =>
-                            component.types.includes("postal_code")
-                        )?.long_name || ""
+                    // Add an onChange handler for post code field
+                    onChange={(e) =>
+                        updateCustomerDetailsForPostCode(e.target.value)
                     }
-                    onChange={updateAddressComponents}
-                    readOnly
                 />
             </div>
         </div>
