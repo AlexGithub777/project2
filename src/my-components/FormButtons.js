@@ -1,13 +1,14 @@
 //Import all dependencies, other Components
 import { Link } from "react-router-dom";
 
-function FormButtons() {
+function FormButtons({ clearUploadedImage }) {
     const handleReset = () => {
         document.getElementById("streetnum").value = "";
         document.getElementById("streetname").value = "";
         document.getElementById("suburb").value = "";
         document.getElementById("city").value = "";
         document.getElementById("postcode").value = "";
+        clearUploadedImage();
     };
 
     return (

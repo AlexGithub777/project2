@@ -2,9 +2,6 @@ import React, { useState, useRef } from "react";
 
 function FormRepairDetail(props) {
     const [warranty, setWarranty] = useState(false);
-    const [uploadedImage, setUploadedImage] = useState(null);
-    const fileInputRef = useRef(null); // Create a ref for the file input
-    const [uploadedFileName, setUploadedFileName] = useState(""); // New state for file name
 
     const handleWarrantyChange = (e) => {
         setWarranty(e.target.checked);
@@ -15,19 +12,20 @@ function FormRepairDetail(props) {
         const file = event.target.files[0];
 
         if (file) {
-            setUploadedFileName(file.name); // Set the uploaded file name
+            props.setUploadedFileName(file.name);
             const reader = new FileReader();
             reader.onload = (e) => {
-                setUploadedImage(e.target.result);
+                props.setUploadedImage(e.target.result);
             };
             reader.readAsDataURL(file);
         }
     };
 
-    const removeImage = () => {
-        setUploadedImage(null);
-        setUploadedFileName(""); // Clear the file name
-        fileInputRef.current.value = ""; // Clear the file input's value
+    const clearUploadedImage = () => {
+        props.setUploadedImage(null);
+        props.setUploadedFileName("");
+        props.fileInput.current.value = "";
+        console.log("working");
     };
 
     //Component UI: HTML Rendering
@@ -92,6 +90,7 @@ function FormRepairDetail(props) {
                     name="mobile-make"
                     className="col-12 col-md-12 col-lg-7"
                     required
+                    defaultValue=""
                 >
                     <option value="" disabled selected>
                         Select a make
@@ -126,7 +125,11 @@ function FormRepairDetail(props) {
                     id="fault-category"
                     name="fault-category"
                     className="col-12 col-md-12 col-lg-7"
+                    defaultValue=""
                 >
+                    <option value="" disabled selected>
+                        Select a fault
+                    </option>
                     <option value="Battery">Battery</option>
                     <option value="Charging">Charging</option>
                     <option value="Screen">Screen</option>
@@ -159,7 +162,7 @@ function FormRepairDetail(props) {
                     style={{ display: "flex", alignItems: "center" }}
                 >
                     <button
-                        onClick={() => fileInputRef.current.click()}
+                        onClick={() => props.fileInput.current.click()}
                         style={{ cursor: "pointer" }}
                         type="button"
                     >
@@ -169,22 +172,24 @@ function FormRepairDetail(props) {
                         type="file"
                         accept="image/*"
                         onChange={handleImageUpload}
-                        ref={fileInputRef}
+                        ref={props.fileInput}
                         style={{ display: "none" }}
                     />
                 </div>
             </div>
-            {uploadedImage && (
+            {props.uploadedImage && (
                 <div className="row mt-2">
                     <div className="col-12 col-md-12 col-lg-7">
-                        <p>File Name: {uploadedFileName}</p>{" "}
+                        <p>File Name: {props.uploadedFileName}</p>{" "}
                         {/* Display the file name */}
                         <img
-                            src={uploadedImage}
+                            src={props.uploadedImage}
                             alt=""
                             style={{ maxWidth: "100%", maxHeight: "300px" }}
                         />
-                        <button onClick={removeImage}>Remove Image</button>
+                        <button type="button" onClick={clearUploadedImage}>
+                            Remove Image
+                        </button>
                     </div>
                 </div>
             )}

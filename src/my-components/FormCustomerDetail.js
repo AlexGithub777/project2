@@ -93,6 +93,7 @@ function FormCustomerDetail(props) {
                     name="title"
                     onChange={handleCustomerDetailsChange}
                     className="col-12 col-md-12 col-lg-7"
+                    defaultValue=""
                     required
                 >
                     <option value="" disabled selected>

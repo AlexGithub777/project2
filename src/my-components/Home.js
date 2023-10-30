@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import FormCustomerDetail from "./FormCustomerDetail";
 import FormRepairDetail from "./FormRepairDetail";
 import FormCourtesyPhone from "./FormCourtesyPhone";
@@ -35,6 +35,17 @@ function Home() {
         phoneNumber: "",
         email: "",
     });
+
+    const fileInput = useRef(null);
+    const [uploadedImage, setUploadedImage] = useState(null);
+    const [uploadedFileName, setUploadedFileName] = useState("");
+
+    const clearUploadedImage = () => {
+        setUploadedImage(null); // Clear the uploaded image
+        setUploadedFileName(""); // Clear the file name
+        fileInput.current.value = ""; // Clear the file input's value
+        console.log("working");
+    };
 
     const handleCustomerDetailsChange = (newCustomerDetails) => {
         // Merge the new customer details with the existing ones
@@ -138,6 +149,12 @@ function Home() {
                     >
                         <FormRepairDetail
                             onWarrantyChange={handleWarrantyChange}
+                            clearUploadedImage={clearUploadedImage}
+                            fileInput={fileInput}
+                            setUploadedImage={setUploadedImage}
+                            setUploadedFileName={setUploadedFileName}
+                            uploadedFileName={uploadedFileName}
+                            uploadedImage={uploadedImage}
 
                             /*onFormDataChange={updateFormData}*/
                         />{" "}
@@ -186,7 +203,11 @@ function Home() {
                             backgroundColor: "#EDBB99",
                         }}
                     >
-                        <FormButtons onSubmit={onSubmit} />
+                        <FormButtons
+                            onSubmit={onSubmit}
+                            clearUploadedImage={clearUploadedImage}
+                            fileInput={fileInput}
+                        />
                     </div>
                     {/* Render the Invoice component when formData is available */}
                     {/*{formData && <Invoice formData={formData} />}*/}
