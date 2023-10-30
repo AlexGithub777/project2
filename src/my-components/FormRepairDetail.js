@@ -1,6 +1,18 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 
 function FormRepairDetail(props) {
+    const handleFieldChange = (e) => {
+        const { name, value, type, checked } = e.target;
+
+        // If the field is a checkbox, handle checked property
+        const fieldValue = type === "checkbox" ? checked : value;
+
+        console.log("Field Name:", name);
+        console.log("Field Value:", fieldValue);
+
+        props.onFieldChange(name, fieldValue);
+    };
+
     const [warranty, setWarranty] = useState(false);
 
     const handleWarrantyChange = (e) => {
@@ -47,17 +59,17 @@ function FormRepairDetail(props) {
                     className="col-12 col-md-12 col-lg-7"
                     type="date"
                     id="purchaseDate"
+                    name="purchaseDate"
                     max={new Date().toISOString().split("T")[0]} // Purchase date must be before today
                     title="Please enter a valid date"
                     required
                     onChange={(e) => {
-                        const date = new Date(e.target.value);
-                        if (isNaN(date.getTime())) {
+                        const purchaseDate = new Date(e.target.value);
+                        if (isNaN(purchaseDate.getTime())) {
                             alert("Please enter a valid date");
                         }
-                        handleWarrantyDisable(date);
-                        document.getElementById("repairDate").min =
-                            e.target.value;
+                        handleWarrantyDisable(purchaseDate);
+                        handleFieldChange(e);
                     }}
                 />
             </div>
@@ -70,11 +82,25 @@ function FormRepairDetail(props) {
                     className="col-12 col-md-12 col-lg-7"
                     type="date"
                     id="repairDate"
+                    name="repairDate"
                     title="Please enter a valid date"
-                    min={new Date().toISOString().split("T")[0]} // Repiar date must be after today
+                    onChange={(e) => {
+                        const repairDate = new Date(e.target.value);
+                        if (isNaN(repairDate.getTime())) {
+                            alert("Please enter a valid date");
+                        }
+                        handleFieldChange(e);
+                    }}
+                    //min={new Date().toISOString().split("T")[0]} // Minimum date is today
+                    min={
+                        new Date(Date.now() + 24 * 60 * 60 * 1000)
+                            .toISOString()
+                            .split("T")[0]
+                    } // Minimum date is one day after today}
                     required
                 />
             </div>
+
             {/*Under Warranty*/}
             <div className="row">
                 <fieldset className="border border-primary col-12 col-lg-11 ms-1 me-4 mb-3">
@@ -88,8 +114,12 @@ function FormRepairDetail(props) {
                         <input
                             type="checkbox"
                             id="warranty"
+                            name="warranty"
                             checked={warranty}
-                            onChange={handleWarrantyChange}
+                            onChange={(e) => {
+                                handleWarrantyChange(e);
+                                handleFieldChange(e);
+                            }}
                         />
                     </div>
                 </fieldset>
@@ -101,7 +131,11 @@ function FormRepairDetail(props) {
                     className="col-12 col-md-12 col-lg-7"
                     type="text"
                     id="imei"
+                    name="imei"
                     pattern="^[0-9]{15}$"
+                    onChange={(e) => {
+                        handleFieldChange(e);
+                    }}
                     title="Please enter a valid IEMI for the repair. Must be 15 digits long."
                     required
                 />
@@ -109,11 +143,14 @@ function FormRepairDetail(props) {
             <div className="row mt-1">
                 <label className="col-12 col-md-12 col-lg-4">Make *</label>
                 <select
-                    id="mobile-make"
-                    name="mobile-make"
+                    id="mobileMake"
+                    name="mobileMake"
                     className="col-12 col-md-12 col-lg-7"
                     title="Please select a phone make."
                     required
+                    onChange={(e) => {
+                        handleFieldChange(e);
+                    }}
                     defaultValue=""
                 >
                     <option value="" disabled>
@@ -135,7 +172,11 @@ function FormRepairDetail(props) {
                 <input
                     className="col-12 col-md-12 col-lg-7"
                     type="text"
-                    id="model-number"
+                    id="modelNumber"
+                    name="modelNumber"
+                    onChange={(e) => {
+                        handleFieldChange(e);
+                    }}
                 />
             </div>
             <div className="row mt-1">
@@ -146,10 +187,13 @@ function FormRepairDetail(props) {
                     Fault Category
                 </label>
                 <select
-                    id="fault-category"
-                    name="fault-category"
+                    id="faultCategory"
+                    name="faultCategory"
                     className="col-12 col-md-12 col-lg-7"
                     defaultValue=""
+                    onChange={(e) => {
+                        handleFieldChange(e);
+                    }}
                 >
                     <option value="" disabled>
                         Select a fault
@@ -175,6 +219,9 @@ function FormRepairDetail(props) {
                     className="col-12 col-md-12 col-lg-7"
                     title="Please enter a description for the repair."
                     required
+                    onChange={(e) => {
+                        handleFieldChange(e);
+                    }}
                 ></textarea>
             </div>
             {/* Add the image upload input */}

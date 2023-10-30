@@ -42,6 +42,24 @@ function Home() {
 
     const [selectedItems, setSelectedItems] = useState([]);
 
+    const [repairDetails, setRepairDetails] = useState({
+        purchaseDate: "",
+        repairDate: "",
+        warranty: false,
+        imei: "",
+        mobileMake: "",
+        modelNumber: "",
+        faultCategory: "",
+        description: "",
+    });
+
+    const handleFieldChange = (fieldName, fieldValue) => {
+        setRepairDetails((prevRepairDetails) => ({
+            ...prevRepairDetails,
+            [fieldName]: fieldValue,
+        }));
+    };
+
     // Home.js
     const clearSelectedItems = () => {
         setSelectedItems([]);
@@ -101,6 +119,7 @@ function Home() {
                 gst,
                 totalGST,
                 customerDetails,
+                repairDetails,
             });
 
             // Open the "Invoice" component and pass the required props
@@ -112,6 +131,7 @@ function Home() {
                     gst,
                     totalGST,
                     customerDetails,
+                    repairDetails,
                 },
             });
         } catch (e) {
@@ -161,6 +181,8 @@ function Home() {
                             setUploadedFileName={setUploadedFileName}
                             uploadedFileName={uploadedFileName}
                             uploadedImage={uploadedImage}
+                            onFieldChange={handleFieldChange}
+                            repairDetails={repairDetails}
 
                             /*onFormDataChange={updateFormData}*/
                         />{" "}
