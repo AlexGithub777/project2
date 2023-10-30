@@ -96,7 +96,7 @@ function FormCustomerDetail(props) {
                     defaultValue=""
                     required
                 >
-                    <option value="" disabled selected>
+                    <option value="" disabled>
                         Select a title
                     </option>
                     <option value="Mr">Mr</option>
@@ -116,6 +116,8 @@ function FormCustomerDetail(props) {
                     id="fname"
                     onChange={handleCustomerDetailsChange} // Handle input changes
                     name="firstName"
+                    pattern="[a-zA-Z\s\-]+"
+                    title="First Name only allows for alphabetical characters, spaces and the – symbol."
                     required
                 />
             </div>
@@ -129,6 +131,8 @@ function FormCustomerDetail(props) {
                     id="lname"
                     name="lastName"
                     onChange={handleCustomerDetailsChange} // Handle input changes
+                    pattern="[a-zA-Z\s\-]+"
+                    title="Last Name only allows for alphabetical characters, spaces and the – symbol."
                     required
                 />
             </div>
@@ -144,11 +148,13 @@ function FormCustomerDetail(props) {
                 </label>
                 <input
                     className="col-12 col-md-12 col-lg-7"
-                    type="number"
+                    type="text"
                     id="phonenumber"
                     name="phoneNumber"
                     onChange={handleCustomerDetailsChange} // Handle input changes
                     required
+                    pattern="[0-9\s\(\)\-\+]+"
+                    title="Phone Number only allows for numbers, spaces and ( ), -, + symbols"
                 />
             </div>
             <div className="row mt-1">

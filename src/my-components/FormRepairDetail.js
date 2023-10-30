@@ -21,6 +21,20 @@ function FormRepairDetail(props) {
         }
     };
 
+    const handleWarrantyDisable = (purchaseDate) => {
+        const warrantyExpiryDate = new Date(purchaseDate);
+        warrantyExpiryDate.setMonth(warrantyExpiryDate.getMonth() + 24); // 24 months from the purchase date
+
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // Set the time to 00:00:00 for accurate comparison
+
+        if (today > warrantyExpiryDate) {
+            document.getElementById("warranty").disabled = true;
+        } else {
+            document.getElementById("warranty").disabled = false;
+        }
+    };
+
     //Component UI: HTML Rendering
     return (
         <>
@@ -33,9 +47,21 @@ function FormRepairDetail(props) {
                     className="col-12 col-md-12 col-lg-7"
                     type="date"
                     id="purchaseDate"
+                    max={new Date().toISOString().split("T")[0]} // Purchase date must be before today
+                    title="Please enter a valid date"
                     required
+                    onChange={(e) => {
+                        const date = new Date(e.target.value);
+                        if (isNaN(date.getTime())) {
+                            alert("Please enter a valid date");
+                        }
+                        handleWarrantyDisable(date);
+                        document.getElementById("repairDate").min =
+                            e.target.value;
+                    }}
                 />
             </div>
+
             <div className="row mt-1">
                 <label className="col-12 col-md-12 col-lg-4">
                     Repair Date *
@@ -44,6 +70,8 @@ function FormRepairDetail(props) {
                     className="col-12 col-md-12 col-lg-7"
                     type="date"
                     id="repairDate"
+                    title="Please enter a valid date"
+                    min={new Date().toISOString().split("T")[0]} // Repiar date must be after today
                     required
                 />
             </div>
@@ -71,8 +99,10 @@ function FormRepairDetail(props) {
                 <label className="col-12 col-md-12 col-lg-4">IMEI *</label>
                 <input
                     className="col-12 col-md-12 col-lg-7"
-                    type="number"
+                    type="text"
                     id="imei"
+                    pattern="^[0-9]{15}$"
+                    title="Please enter a valid IEMI for the repair. Must be 15 digits long."
                     required
                 />
             </div>
@@ -82,10 +112,11 @@ function FormRepairDetail(props) {
                     id="mobile-make"
                     name="mobile-make"
                     className="col-12 col-md-12 col-lg-7"
+                    title="Please select a phone make."
                     required
                     defaultValue=""
                 >
-                    <option value="" disabled selected>
+                    <option value="" disabled>
                         Select a make
                     </option>
                     <option value="Apple">Apple</option>
@@ -120,7 +151,7 @@ function FormRepairDetail(props) {
                     className="col-12 col-md-12 col-lg-7"
                     defaultValue=""
                 >
-                    <option value="" disabled selected>
+                    <option value="" disabled>
                         Select a fault
                     </option>
                     <option value="Battery">Battery</option>
@@ -142,6 +173,7 @@ function FormRepairDetail(props) {
                     id="description"
                     name="description"
                     className="col-12 col-md-12 col-lg-7"
+                    title="Please enter a description for the repair."
                     required
                 ></textarea>
             </div>

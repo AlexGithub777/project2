@@ -187,7 +187,7 @@ const AutoComplete = ({ updateCustomerDetails }) => {
         <div>
             <div className="row mt-1">
                 <label className="col-12 col-md-12 col-lg-4">
-                    Enter address:
+                    Search for address:
                 </label>
                 <input
                     className="col-12 col-md-12 col-lg-7"
@@ -205,6 +205,7 @@ const AutoComplete = ({ updateCustomerDetails }) => {
                     type="text"
                     id="streetnum"
                     name="streetNum"
+                    title="Please enter a street number"
                     onChange={(e) =>
                         updateCustomerDetailsForStreetNum(e.target.value)
                     }
@@ -220,6 +221,7 @@ const AutoComplete = ({ updateCustomerDetails }) => {
                     type="text"
                     id="streetname"
                     name="streetName"
+                    title="Please enter a street name"
                     onChange={(e) =>
                         updateCustomerDetailsForStreetName(e.target.value)
                     }
@@ -246,6 +248,7 @@ const AutoComplete = ({ updateCustomerDetails }) => {
                     type="text"
                     id="city"
                     name="City"
+                    title="Please enter a city"
                     // Add an onChange handler for suburb field
                     onChange={(e) =>
                         updateCustomerDetailsForCity(e.target.value)
@@ -254,12 +257,17 @@ const AutoComplete = ({ updateCustomerDetails }) => {
                 />
             </div>
             <div className="row mt-1">
-                <label className="col-12 col-md-12 col-lg-4">Post Code:</label>
+                <label className="col-12 col-md-12 col-lg-4">
+                    Post Code: *
+                </label>
                 <input
                     className="col-12 col-md-12 col-lg-7"
-                    type="number"
+                    type="text"
                     id="postcode"
                     name="postCode"
+                    pattern="^\d{4}$"
+                    title="Please enter a 4-digit postcode"
+                    required
                     // Add an onChange handler for post code field
                     onChange={(e) =>
                         updateCustomerDetailsForPostCode(e.target.value)

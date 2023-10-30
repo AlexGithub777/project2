@@ -181,6 +181,7 @@ function Home() {
                                 passDataToParent={updateSharedState}
                                 setSelectedItems={setSelectedItems}
                                 selectedItems={selectedItems}
+                                customerType={customerType}
                                 /*onFormDataChange={updateFormData}*/
                             />{" "}
                             {/* Child1 */}
