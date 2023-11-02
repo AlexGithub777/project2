@@ -61,7 +61,7 @@ function FormRepairDetail(props) {
                     id="purchaseDate"
                     name="purchaseDate"
                     max={
-                        new Date(Date.now() + 24 * 60 * 60 * 1000)
+                        new Date(Date.now())
                             .toISOString()
                             .split("T")[0]
                     } // Purchase date must be before today
@@ -96,7 +96,7 @@ function FormRepairDetail(props) {
                         }
                         handleFieldChange(e);
                     }}
-                    min={new Date(Date.now() + 24 * 60 * 60 * 1000)
+                    min={new Date(Date.now())
                         .toISOString()
                         .slice(0, 16)} // Minimum date and time is the current date and time
                     required

@@ -1,13 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 function FormCost(props) {
-    const { sharedPropBond, warranty, customerType, onCostChange } = props;
+    const { sharedBond, warranty, customerType, onCostChange } = props;
 
     // Calculate the service fee based on warranty status
     const serviceFee = warranty ? 0 : 85;
 
     // Calculate the bond based on the customer type
-    const bond = customerType === "business" ? 0 : sharedPropBond;
+    const bond = customerType === "business" ? 0 : sharedBond;
 
     // Calculate the total cost by adding the bond and service fee
     const totalCost = bond + serviceFee;
@@ -25,14 +25,23 @@ function FormCost(props) {
     const formattedGST = gst.toFixed(2);
     const formattedTotalGST = totalGST.toFixed(2);
 
-    // Pass the formatted values to the parent component
-    onCostChange({
-        bond: formattedBond,
-        serviceFee: formattedServiceFee,
-        totalCost: formattedTotalCost,
-        gst: formattedGST,
-        totalGST: formattedTotalGST,
-    });
+    useEffect(() => {
+        // Call the callback function in the parent component
+        onCostChange({
+            bond: formattedBond,
+            serviceFee: formattedServiceFee,
+            totalCost: formattedTotalCost,
+            gst: formattedGST,
+            totalGST: formattedTotalGST,
+        });
+    }, [
+        onCostChange,
+        formattedBond,
+        formattedServiceFee,
+        formattedTotalCost,
+        formattedGST,
+        formattedTotalGST,
+    ]);
 
     //Component UI: HTML Rendering
     return (

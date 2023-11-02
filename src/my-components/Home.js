@@ -24,6 +24,7 @@ function Home() {
     const [totalGST, setTotalGST] = useState(0);
 
     const [customerDetails, setCustomerDetails] = useState({
+        type: "",
         title: "",
         firstName: "",
         lastName: "",
@@ -79,8 +80,7 @@ function Home() {
         }));
     };
 
-    // Inside the Home component
-    // Callback function to handle cost changes and update state
+   
     // Callback function to handle cost changes and update state
     const handleCostChange = (costData) => {
         setBond(costData.bond);
@@ -120,6 +120,7 @@ function Home() {
                 totalGST,
                 customerDetails,
                 repairDetails,
+                selectedItems,
             });
 
             // Open the "Invoice" component and pass the required props
@@ -132,12 +133,20 @@ function Home() {
                     totalGST,
                     customerDetails,
                     repairDetails,
+                    selectedItems,
                 },
             });
         } catch (e) {
             alert("ERROR!!!");
         }
     };
+
+
+    
+
+
+
+
 
     // Component UI: HTML Rendering
     return (
@@ -217,7 +226,7 @@ function Home() {
                             }}
                         >
                             <FormCost
-                                sharedPropBond={sharedBond}
+                                sharedBond={sharedBond}
                                 warranty={warranty}
                                 customerType={customerType}
                                 onCostChange={handleCostChange} // Pass the function

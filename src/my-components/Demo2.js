@@ -38,7 +38,7 @@ function Demo2() {
                 <p>Lorem Ipsum</p>
                 <img
                     src="https://play-lh.googleusercontent.com/mRQg4up-ykXfRh7S0mE8w62iLk-0UpGz9V-SsBT0FZ4t1HFdL__WF3oB9blXsP5DSw"
-                    alt="Image"
+                    alt="person"
                     height="200px"
                 />
                 <p>

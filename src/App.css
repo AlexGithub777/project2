@@ -13,6 +13,13 @@
   }
 }
 
+/* In your CSS or within a <style> tag */
+@media (max-width: 500px) {
+  .remove-margin {
+    margin-right: 0; /* Remove the right margin */
+  }
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

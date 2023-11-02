@@ -1,7 +1,7 @@
 import React, {
     useRef,
     useEffect,
-    useState,
+    
     useMemo,
     useCallback,
 } from "react";
@@ -9,7 +9,7 @@ import React, {
 const AutoComplete = ({ updateCustomerDetails }) => {
     const autoCompleteRef = useRef();
     const inputRef = useRef();
-    const [selectedPlace, setSelectedPlace] = useState({});
+    
 
     const options = useMemo(() => {
         return {
@@ -167,7 +167,7 @@ const AutoComplete = ({ updateCustomerDetails }) => {
             const place = await autoCompleteRef.current.getPlace();
 
             if (place && isResidentialAddress(place)) {
-                setSelectedPlace(place);
+                
                 updateAddressComponents(place.address_components);
             } else {
                 console.error(

@@ -48,7 +48,7 @@ function Demo1(props) {
             <img
                 style={{ height: "250px" }}
                 src={images[currentIndexManual]}
-                alt="image"
+                alt="slideshow"
             />
             <div>
                 <button onClick={handleManualPrevious}>Previous</button>
@@ -59,7 +59,7 @@ function Demo1(props) {
             <img
                 style={{ height: "250px" }}
                 src={images[currentIndexAutomatic]}
-                alt="image"
+                alt="slideshow"
             />
         </div>
     );
