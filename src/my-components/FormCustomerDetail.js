@@ -28,16 +28,13 @@ function FormCustomerDetail(props) {
 
     const handleCustomerDetailsChange = (e) => {
         const { name, value } = e.target;
+        
+        
 
         setCustomerDetails((prevDetails) => {
             const updatedDetails = {
                 ...prevDetails,
                 [name]: value,
-                streetNum: document.getElementById("streetnum").value,
-                streetName: document.getElementById("streetname").value,
-                suburb: document.getElementById("suburb").value,
-                city: document.getElementById("city").value,
-                postCode: document.getElementById("postcode").value,
             };
             console.log("Updated Customer Details:", updatedDetails);
             props.onCustomerDetailsChange(updatedDetails);
