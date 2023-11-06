@@ -2,6 +2,9 @@
 import { useState } from "react";
 import Demo1 from "./Demo1";
 import Demo2 from "./Demo2";
+import Demo3 from "./Demo3";
+import Demo4 from "./Demo4";
+import Demo5 from "./Demo5";
 
 //Function Component
 function AdvancedJS() {
@@ -13,7 +16,7 @@ function AdvancedJS() {
     //Component UI: HTML Rendering
     return (
         <>
-            <div style={{ minHeight: "60vh" }}>
+            <div className="container-fluid" style={{ minHeight: "60vh" }}>
                 {/*BUTTONS AND DEMOS*/}
                 <div className="row mt-2 p-0">
                     {/*Column 1 */}
@@ -110,7 +113,7 @@ function AdvancedJS() {
                                         clickedButton === 3 ? "block" : "none",
                                 }}
                             >
-                                COMPONENT DEMO3{" "}
+                                <Demo3 />{" "}
                             </div>{" "}
                             {/*Demo 3 */}
                             <div
@@ -120,7 +123,7 @@ function AdvancedJS() {
                                         clickedButton === 4 ? "block" : "none",
                                 }}
                             >
-                                COMPONENT DEMO4{" "}
+                                <Demo4 />{" "}
                             </div>{" "}
                             {/*Demo 4 */}
                             <div
@@ -130,7 +133,7 @@ function AdvancedJS() {
                                         clickedButton === 5 ? "block" : "none",
                                 }}
                             >
-                                COMPONENT DEMO5{" "}
+                                <Demo5 />{" "}
                             </div>{" "}
                             {/*Demo 5 */}
                         </div>
