@@ -1,15 +1,8 @@
-import React, {
-    useRef,
-    useEffect,
-    
-    useMemo,
-    useCallback,
-} from "react";
+import React, { useRef, useEffect, useMemo, useCallback } from "react";
 
 const AutoComplete = ({ updateCustomerDetails }) => {
     const autoCompleteRef = useRef();
     const inputRef = useRef();
-    
 
     const options = useMemo(() => {
         return {
@@ -158,16 +151,17 @@ const AutoComplete = ({ updateCustomerDetails }) => {
             return false;
         };
 
-        autoCompleteRef.current = new window.google.maps.places.Autocomplete(
+        /* global google */
+
+        const autoComplete = new google.maps.places.Autocomplete(
             inputRef.current,
             options
         );
 
-        autoCompleteRef.current.addListener("place_changed", async function () {
-            const place = await autoCompleteRef.current.getPlace();
+        autoComplete.addListener("place_changed", async function () {
+            const place = await autoComplete.getPlace();
 
             if (place && isResidentialAddress(place)) {
-                
                 updateAddressComponents(place.address_components);
             } else {
                 console.error(
