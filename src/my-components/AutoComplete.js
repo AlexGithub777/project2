@@ -1,6 +1,69 @@
-import React, { useCallback } from "react";
+import React, { useRef, useEffect, useMemo, useCallback } from "react";
 
 const AutoComplete = ({ updateCustomerDetails }) => {
+    const autoCompleteRef = useRef();
+    const inputRef = useRef();
+
+    const options = useMemo(() => {
+        return {
+            componentRestrictions: { country: "nz" },
+            fields: ["address_components", "geometry", "icon", "name"],
+            types: ["geocode"],
+        };
+    }, []);
+
+    const updateAddressComponents = useCallback(
+        (addressComponents) => {
+            if (updateCustomerDetails && Array.isArray(addressComponents)) {
+                const updatedDetails = {
+                    streetNum: "",
+                    streetName: "",
+                    suburb: "",
+                    city: "",
+                    postCode: "",
+                };
+
+                addressComponents.forEach((component) => {
+                    const componentType = component.types[0]; // Get the first type
+                    switch (componentType) {
+                        case "street_number":
+                            updatedDetails.streetNum = component.long_name;
+                            document.getElementById("streetnum").value =
+                                updatedDetails.streetNum;
+                            break;
+                        case "route":
+                            updatedDetails.streetName = component.long_name;
+                            document.getElementById("streetname").value =
+                                updatedDetails.streetName;
+                            break;
+                        case "sublocality_level_1":
+                            updatedDetails.suburb = component.long_name;
+                            document.getElementById("suburb").value =
+                                updatedDetails.suburb;
+                            break;
+                        case "locality":
+                            updatedDetails.city = component.long_name;
+                            document.getElementById("city").value =
+                                updatedDetails.city;
+                            break;
+                        case "postal_code":
+                            updatedDetails.postCode = component.long_name;
+                            document.getElementById("postcode").value =
+                                updatedDetails.postCode;
+                            break;
+                        default:
+                            break;
+                    }
+                });
+
+                updateCustomerDetails(updatedDetails);
+            } else {
+                console.error("Invalid address components:", addressComponents);
+            }
+        },
+        [updateCustomerDetails]
+    );
+
     const updateCustomerDetailsForStreetNum = useCallback(
         (value) => {
             const updatedDetails = {
@@ -71,6 +134,49 @@ const AutoComplete = ({ updateCustomerDetails }) => {
         [updateCustomerDetails]
     );
 
+    useEffect(() => {
+        const isResidentialAddress = (place) => {
+            // You can add custom logic to determine if it's a residential address
+            // For example, checking if it has street number and street name
+            const addressComponents = place.address_components;
+            if (addressComponents) {
+                const hasStreetNumber = addressComponents.some((component) =>
+                    component.types.includes("street_number")
+                );
+                const hasStreetName = addressComponents.some((component) =>
+                    component.types.includes("route")
+                );
+                return hasStreetNumber && hasStreetName;
+            }
+            return false;
+        };
+
+        /* global google */
+
+        const autoComplete = new google.maps.places.Autocomplete(
+            inputRef.current,
+            options
+        );
+
+        autoComplete.addListener("place_changed", async function () {
+            const place = await autoComplete.getPlace();
+
+            if (place && isResidentialAddress(place)) {
+                updateAddressComponents(place.address_components);
+            } else {
+                console.error(
+                    "Invalid place object or missing address_components."
+                );
+            }
+        });
+    }, [
+        options,
+        updateAddressComponents,
+        updateCustomerDetails,
+        updateCustomerDetailsForStreetNum,
+        updateCustomerDetailsForStreetName,
+    ]);
+
     return (
         <div>
             <div className="row mt-1">
@@ -80,7 +186,7 @@ const AutoComplete = ({ updateCustomerDetails }) => {
                 <input
                     className="col-12 col-md-12 col-lg-7"
                     name="address"
-                    id="input"
+                    ref={inputRef}
                 />
             </div>
             {/* Display selected address components */}
