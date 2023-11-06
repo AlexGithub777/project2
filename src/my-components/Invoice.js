@@ -1,19 +1,20 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 
+const screenWidth = window.innerWidth;
 
+console.log(screenWidth);
 
 const tableStyles = {
     border: "1px solid #000",
     borderCollapse: "collapse",
     maxWidth: "400px", // Set your preferred maximum width
-    marginLeft: "35px"
+    marginLeft: "35px",
 };
 
 const cellStyles = {
     border: "1px solid #000",
     padding: "8px",
-    
 };
 
 const headerCellStyles = {
@@ -36,14 +37,13 @@ const titleStyles = {
 
 const headerAmount = {
     textAlign: "right",
-    padding: "10px"
-}
+    padding: "10px",
+};
 
 const customerDetailsStyle = {
     marginLeft: "32px",
-    marginTop: "20px"
-}
-
+    marginTop: "20px",
+};
 
 const repairDetailsHeadStyle = {
     marginTop: "20px",
@@ -52,14 +52,14 @@ const repairDetailsHeadStyle = {
 
 const labelStyle = {
     fontWeight: "bold", // Make text bold
-    display: "inline-block", // Align labels horizontally
+    display: screenWidth <= 500 ? "" : "inline-block",
     width: "170px", // Adjust the width as needed to align values
     textIndent: "40px", // Indent the first line of text
 };
 
 const repairDetailsStyle = {
     marginLeft: "20px",
-}
+};
 
 const courtesyStyle = {
     marginLeft: "40px",
@@ -67,20 +67,14 @@ const courtesyStyle = {
 
 const detailStyle = {
     width: "230px", // Set the desired width
-    display: "inline-block",
+    display: screenWidth <= 500 ? "" : "inline-block",
     textIndent: "55px", // Set the desired text indent
     fontWeight: "bold", // Make text bold
 };
 
 const repairHeader = {
-    margin: "15px"
-}
-
-const screenWidth = window.innerWidth;
-
-console.log(screenWidth);
-
-
+    margin: "15px",
+};
 
 function Invoice() {
     // Use the useLocation hook to access the location object
@@ -291,7 +285,7 @@ function Invoice() {
                 <div className="col-lg-12 d-flex justify-content-lg-end">
                     <div
                         style={{
-                            marginRight: screenWidth >= 500 ? "242px" : "0",
+                            marginRight: screenWidth >= 600 ? "242px" : "0",
                         }}
                     >
                         <h4>Totals</h4>

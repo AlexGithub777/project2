@@ -2,13 +2,15 @@ import React from "react";
 import file_upload from "../images/file_upload.png";
 import file_uploaded from "../images/file_uploaded.png";
 
+const demoStyle = {
+    backgroundColor: "gray",
+    padding: "15px",
+    border: "3px solid #586e8c",
+    marginBottom: "10px",
+};
+
 // Function Component
 function Demo5() {
-    // Get the original width and height of the images
-    const fileUploadImg = new Image();
-    fileUploadImg.src = file_upload;
-    const originalFileUploadHeight = fileUploadImg.height;
-
     // Component UI: HTML Rendering
     const imageStyle = {
         margin: "10px", // Adjust the margin value to control the spacing
@@ -22,7 +24,7 @@ function Demo5() {
     };
 
     return (
-        <>
+        <div style={demoStyle}>
             <h1>
                 DEMO 5: Improve UX: Use “file upload” feature allows users to
                 upload the image of the repair phones & display the image on the
@@ -33,21 +35,26 @@ function Demo5() {
                 Screenshots:
             </p>
             <div style={containerStyle}>
-                <img
-                    src={file_upload}
-                    alt="damaged phone, file upload"
-                    style={{
-                        ...imageStyle,
-                        height: originalFileUploadHeight + "px",
-                    }}
-                />
-                <img
-                    src={file_uploaded}
-                    alt="damaged phone, file upload"
-                    style={imageStyle}
-                />
+                <div className="row">
+                    <div className="col-12 col-md-6">
+                        <img
+                            className="img-fluid"
+                            src={file_upload}
+                            alt="damaged phone, file upload"
+                            style={imageStyle}
+                        />
+                    </div>
+                    <div className="col-12 col-md-6">
+                        <img
+                            className="img-fluid"
+                            src={file_uploaded}
+                            alt="damaged phone, file upload"
+                            style={imageStyle}
+                        />
+                    </div>
+                </div>
             </div>
-        </>
+        </div>
     );
 }
 

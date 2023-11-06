@@ -15,6 +15,9 @@ const slideShowStyle = {
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
+    border: "3px solid #586e8c",
+    paddingBottom: "10px",
+    marginBottom: "10px",
 };
 
 function Demo1(props) {

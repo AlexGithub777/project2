@@ -1,5 +1,11 @@
 import { useState } from "react";
 
+const demoStyle = {
+    backgroundColor: "gray",
+    padding: "15px",
+    border: "3px solid #586e8c",
+};
+
 // Function Component
 function Demo2() {
     const [bgColor, setbgColor] = useState(
@@ -27,13 +33,17 @@ function Demo2() {
     // Component UI: HTML Rendering
 
     return (
-        <>
+        <div style={demoStyle}>
             <h1>
                 DEMO 2: Remember user preferences by using Local Storage API
             </h1>
             <div
                 id="customization-card"
-                style={{ backgroundColor: bgColor, fontSize: textSize }}
+                style={{
+                    backgroundColor: bgColor,
+                    fontSize: textSize,
+                    padding: "10px",
+                }}
             >
                 <p>Lorem Ipsum</p>
                 <img
@@ -68,7 +78,7 @@ function Demo2() {
                 <option value="25px">BIG</option>
                 <option value="16px">NORMAL</option>
             </select>
-        </>
+        </div>
     );
 }
 
