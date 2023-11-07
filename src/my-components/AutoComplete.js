@@ -1,7 +1,12 @@
-import React, { useRef, useEffect, useMemo, useCallback } from "react";
-
+import React, { useRef, useMemo, useCallback } from "react";
+import { Loader } from "@googlemaps/js-api-loader";
 const AutoComplete = ({ updateCustomerDetails }) => {
-    const autoCompleteRef = useRef();
+    const loader = new Loader({
+        apiKey: "AIzaSyCywE0Rw1TWW9W4zpX_N8ywWew0XEuTlRA",
+        version: "weekly",
+        libraries: ["places"],
+    });
+
     const inputRef = useRef();
 
     const options = useMemo(() => {
@@ -134,48 +139,49 @@ const AutoComplete = ({ updateCustomerDetails }) => {
         [updateCustomerDetails]
     );
 
-    useEffect(() => {
-        const isResidentialAddress = (place) => {
-            // You can add custom logic to determine if it's a residential address
-            // For example, checking if it has street number and street name
-            const addressComponents = place.address_components;
-            if (addressComponents) {
-                const hasStreetNumber = addressComponents.some((component) =>
-                    component.types.includes("street_number")
-                );
-                const hasStreetName = addressComponents.some((component) =>
-                    component.types.includes("route")
-                );
-                return hasStreetNumber && hasStreetName;
-            }
-            return false;
-        };
+    const isResidentialAddress = (place) => {
+        // You can add custom logic to determine if it's a residential address
+        // For example, checking if it has street number and street name
+        const addressComponents = place.address_components;
+        if (addressComponents) {
+            const hasStreetNumber = addressComponents.some((component) =>
+                component.types.includes("street_number")
+            );
+            const hasStreetName = addressComponents.some((component) =>
+                component.types.includes("route")
+            );
+            return hasStreetNumber && hasStreetName;
+        }
+        return false;
+    };
 
-        /* global google */
+    /* global google */
 
-        const autoComplete = new google.maps.places.Autocomplete(
-            inputRef.current,
-            options
-        );
+    loader
+        .importLibrary("places")
+        .then(() => {
+            const autoComplete = new google.maps.places.Autocomplete(
+                inputRef.current,
+                options
+            );
 
-        autoComplete.addListener("place_changed", async function () {
-            const place = await autoComplete.getPlace();
+            autoComplete.addListener("place_changed", async function () {
+                const place = await autoComplete.getPlace();
 
-            if (place && isResidentialAddress(place)) {
-                updateAddressComponents(place.address_components);
-            } else {
-                console.error(
-                    "Invalid place object or missing address_components."
-                );
-            }
+                if (place && isResidentialAddress(place)) {
+                    updateAddressComponents(place.address_components);
+                } else {
+                    console.error(
+                        "Invalid place object or missing address_components."
+                    );
+                }
+            });
+        })
+        .catch((e) => {
+            // do something
         });
-    }, [
-        options,
-        updateAddressComponents,
-        updateCustomerDetails,
-        updateCustomerDetailsForStreetNum,
-        updateCustomerDetailsForStreetName,
-    ]);
+
+    
 
     return (
         <div>
