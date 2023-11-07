@@ -41,8 +41,98 @@
     <body>
         <noscript>You need to enable JavaScript to run this app.</noscript>
         <script>
+            const options = {
+                componentRestrictions: { country: "nz" },
+                fields: ["address_components", "geometry", "icon", "name"],
+                types: ["geocode"],
+            };
+
+            const updateAddressComponents = (addressComponents) => {
+                if (Array.isArray(addressComponents)) {
+                    const updatedDetails = {
+                        streetNum: "",
+                        streetName: "",
+                        suburb: "",
+                        city: "",
+                        postCode: "",
+                    };
+
+                    addressComponents.forEach((component) => {
+                        const componentType = component.types[0]; // Get the first type
+                        switch (componentType) {
+                            case "street_number":
+                                updatedDetails.streetNum = component.long_name;
+                                document.getElementById("streetnum").value =
+                                    updatedDetails.streetNum;
+                                break;
+                            case "route":
+                                updatedDetails.streetName = component.long_name;
+                                document.getElementById("streetname").value =
+                                    updatedDetails.streetName;
+                                break;
+                            case "sublocality_level_1":
+                                updatedDetails.suburb = component.long_name;
+                                document.getElementById("suburb").value =
+                                    updatedDetails.suburb;
+                                break;
+                            case "locality":
+                                updatedDetails.city = component.long_name;
+                                document.getElementById("city").value =
+                                    updatedDetails.city;
+                                break;
+                            case "postal_code":
+                                updatedDetails.postCode = component.long_name;
+                                document.getElementById("postcode").value =
+                                    updatedDetails.postCode;
+                                break;
+                            default:
+                                break;
+                        }
+                    });
+                } else {
+                    console.error(
+                        "Invalid address components:",
+                        addressComponents
+                    );
+                }
+            };
+
             function initMap() {
-                console.log("API Loaded")
+                const isResidentialAddress = (place) => {
+                    // You can add custom logic to determine if it's a residential address
+                    // For example, checking if it has street number and street name
+                    const addressComponents = place.address_components;
+                    if (addressComponents) {
+                        const hasStreetNumber = addressComponents.some(
+                            (component) =>
+                                component.types.includes("street_number")
+                        );
+                        const hasStreetName = addressComponents.some(
+                            (component) => component.types.includes("route")
+                        );
+                        return hasStreetNumber && hasStreetName;
+                    }
+                    return false;
+                };
+
+                const input = document.getElementById("input");
+
+                const autoComplete = new google.maps.places.Autocomplete(
+                    input,
+                    options
+                );
+
+                autoComplete.addListener("place_changed", async function () {
+                    const place = await autoComplete.getPlace();
+
+                    if (place && isResidentialAddress(place)) {
+                        updateAddressComponents(place.address_components);
+                    } else {
+                        console.error(
+                            "Invalid place object or missing address_components."
+                        );
+                    }
+                });
             }
         </script>
         <div id="root"></div>
