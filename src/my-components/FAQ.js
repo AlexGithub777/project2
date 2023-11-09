@@ -6,7 +6,6 @@ import { useState } from "react";
 function FAQ() {
   //Declare a "state" variable: "enteredKeywords"
   const [enteredKeywords, setEnteredKeywords] = useState("");
-  const [filteredQuestions, setFilteredQuestions] = useState(Questions);
 
   //handle event. Read more at https://react.dev/learn#using-hooks
   const inputChange = (event) => {
