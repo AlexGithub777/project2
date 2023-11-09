@@ -60,11 +60,7 @@ function FormRepairDetail(props) {
                     type="date"
                     id="purchaseDate"
                     name="purchaseDate"
-                    max={
-                        new Date(Date.now())
-                            .toISOString()
-                            .split("T")[0]
-                    } // Purchase date must be before today
+                    max={new Date(Date.now()).toISOString().split("T")[0]} // Purchase date must be before today
                     //min={new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString().split("T")[0]}
                     title="Please enter a valid date"
                     required
@@ -96,16 +92,14 @@ function FormRepairDetail(props) {
                         }
                         handleFieldChange(e);
                     }}
-                    min={new Date(Date.now())
-                        .toISOString()
-                        .slice(0, 16)} // Minimum date and time is the current date and time
+                    min={new Date(Date.now()).toISOString().slice(0, 16)} // Minimum date and time is the current date and time
                     required
                 />
             </div>
 
             {/*Under Warranty*/}
             <div className="row">
-                <fieldset className="border border-primary col-12 col-lg-11 ms-1 me-4 mb-3">
+                <fieldset className="border border-black col-12 col-lg-11 ms-1 me-4 mb-3">
                     <legend className="col-11 float-none w-auto">
                         Under Warranty
                     </legend>
@@ -237,8 +231,8 @@ function FormRepairDetail(props) {
                 >
                     <button
                         onClick={() => props.fileInput.current.click()}
-                        style={{ cursor: "pointer" }}
                         type="button"
+                        className="btn btn-primary"
                     >
                         Choose File
                     </button>
@@ -264,6 +258,7 @@ function FormRepairDetail(props) {
                         <button
                             type="button"
                             onClick={props.clearUploadedImage}
+                            className="btn btn-danger mt-3 ms-3"
                         >
                             Remove Image
                         </button>

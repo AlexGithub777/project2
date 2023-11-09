@@ -17,6 +17,10 @@ function Header() {
         alignItems: "center",
     };
 
+    const buttonStyle = {
+        textDecoration: "none"
+    }
+
     let phoneFixServicesText;
 
     switch (location.pathname) {
@@ -50,18 +54,26 @@ function Header() {
                             {/*Button 1*/}
                             <Link
                                 to="/"
-                                class="col-12 col-md-6 col-lg-6 p-0 m-0 bg-info border border-dark text-center 
-                            text-white"
-                                style={{ textDecoration: "none" }}
+                                class={`col-12 col-md-6 col-lg-6 p-0 m-0 border border-dark text-center 
+                            text-white ${
+                                location.pathname === "/"
+                                    ? "bg-success"
+                                    : "bg-info"
+                            }`}
+                                style={buttonStyle}
                             >
                                 HOME
                             </Link>
                             {/*Button 2*/}
                             <Link
                                 to="/advancedJS"
-                                class="col-12 col-md-6 col-lg-6 p-0 m-0 bg-info border border-dark 
-                            text-center text-white"
-                                style={{ textDecoration: "none" }}
+                                class={`col-12 col-md-6 col-lg-6 p-0 m-0 border border-dark 
+                            text-center text-white ${
+                                location.pathname === "/advancedJS"
+                                    ? "bg-success"
+                                    : "bg-info"
+                            }`}
+                                style={buttonStyle}
                             >
                                 EXTENSION
                             </Link>

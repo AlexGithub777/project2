@@ -57,7 +57,7 @@ function FormCustomerDetail(props) {
             <h2>Customer Details</h2>
             {/*Customer type*/}
             <div className="row">
-                <fieldset className="border border-primary col-12 col-lg-11 ms-2 me-4">
+                <fieldset className="border border-black col-12 col-lg-11 ms-2 me-4">
                     <legend className="col-11 float-none w-auto">
                         Customer type *
                     </legend>

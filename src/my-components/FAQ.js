@@ -6,6 +6,7 @@ import { useState } from "react";
 function FAQ() {
   //Declare a "state" variable: "enteredKeywords"
   const [enteredKeywords, setEnteredKeywords] = useState("");
+  const [filteredQuestions, setFilteredQuestions] = useState(Questions);
 
   //handle event. Read more at https://react.dev/learn#using-hooks
   const inputChange = (event) => {
@@ -18,12 +19,11 @@ function FAQ() {
   //Component UI: HTML Rendering
   return (
     <>
-      <div style={{ minHeight: "60vh" }}>
-        <h1>Frequently Asked Questions</h1>
+      <div style={{ minHeight: "60vh", backgroundColor: "#eefaf3" }}>
         {/*Add search box on top*/}
-        <div className="row">
+        <div className="row justify-content-center">
           <input
-            className="col-11 m-3"
+            className="col-10 col-md-6 m-3"
             type="text"
             name="search"
             onChange={inputChange}
@@ -44,10 +44,14 @@ function FAQ() {
                 .includes(enteredKeywords.toLowerCase())
           ).map((question) => {
             return (
-              <div className="bg-warning p-3 m-2" key={id++}>
-                <h4>{question.question}</h4>
-                <p>{question.answer}</p>
-              </div>
+                <div
+                    className="p-3 m-4"
+                    style={{ backgroundColor: "#f8ebd6" }}
+                    key={id++}
+                >
+                    <h4>{question.question}</h4>
+                    <p>{question.answer}</p>
+                </div>
             );
           })}
         </div>

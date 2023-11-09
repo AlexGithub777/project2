@@ -12,8 +12,9 @@ const componentStyles = {
         border: "1px solid black",
         backgroundColor: "white",
         margin: "5px",
-        padding: "5px",
+        padding: "10px",
         cursor: "pointer",
+        width: "80%"
     },
     selected: {
         backgroundColor: "lightgray",
@@ -24,8 +25,8 @@ const componentStyles = {
     selectedItem: {
         border: "1px solid black",
         backgroundColor: "lightgray",
-        margin: "5px",
-        padding: "5px",
+        margin: "10px",
+        padding: "10px",
         display: "inline-block",
         cursor: "pointer",
     },
@@ -139,7 +140,7 @@ function FormCourtesyPhone({
                 You can select a maximum of 1 unit per item.
             </p>
 
-            <div className="row mt-2 ms-3">
+            <div className="row mt-2 justify-content-center">
                 {courtesyList.map((item) => (
                     <div
                         style={componentStyles.courtesyItem}
@@ -183,7 +184,11 @@ function FormCourtesyPhone({
                             ) : (
                                 <span> - Bond: ${item.bond}</span>
                             )}
-                            <button onClick={() => removeItem(item)}>
+                            <button
+                                type="button"
+                                className="btn btn-danger ms-2"
+                                onClick={() => removeItem(item)}
+                            >
                                 Remove
                             </button>
                         </div>
