@@ -2,19 +2,17 @@ import React from "react";
 import address_search from "../images/address_search.png";
 import address_autofill from "../images/address_autofill.png";
 
-const demoStyle = {
-    backgroundColor: "gray",
-    padding: "15px",
-    border: "3px solid #586e8c",
-    marginBottom: "10px",
-};
+
 
 // Function Component
 function Demo3() {
     // Component UI: HTML Rendering
 
-    const imageStyle = {
-        margin: "10px", // Adjust the margin value to control the spacing
+    const demoStyle = {
+        backgroundColor: "gray",
+        padding: "15px",
+        border: "3px solid #586e8c",
+        marginBottom: "10px",
     };
 
     const containerStyle = {
@@ -34,20 +32,18 @@ function Demo3() {
             </p>
             <div style={containerStyle}>
                 <div className="row">
-                    <div className="col-12 col-md-6">
+                    <div className="col-12 col-md-6 mb-3">
                         <img
                             className="img-fluid"
                             src={address_search}
                             alt="address search"
-                            style={imageStyle}
                         />
                     </div>
-                    <div className="col-12 col-md-6">
+                    <div className="col-12 col-md-6 mb-3">
                         <img
                             className="img-fluid"
                             src={address_autofill}
                             alt="address autofill"
-                            style={imageStyle}
                         />
                     </div>
                 </div>

@@ -2,20 +2,16 @@ import React from "react";
 import file_upload from "../images/file_upload.png";
 import file_uploaded from "../images/file_uploaded.png";
 
-const demoStyle = {
-    backgroundColor: "gray",
-    padding: "15px",
-    border: "3px solid #586e8c",
-    marginBottom: "10px",
-};
+
 
 // Function Component
 function Demo5() {
     // Component UI: HTML Rendering
-    const imageStyle = {
-        margin: "10px", // Adjust the margin value to control the spacing
-        maxWidth: "100%", // Maintain the original aspect ratio
-        height: "auto", // Maintain the original height
+    const demoStyle = {
+        backgroundColor: "gray",
+        padding: "15px",
+        border: "3px solid #586e8c",
+        marginBottom: "10px",
     };
 
     const containerStyle = {
@@ -36,20 +32,18 @@ function Demo5() {
             </p>
             <div style={containerStyle}>
                 <div className="row">
-                    <div className="col-12 col-md-6">
+                    <div className="col-12 col-md-6 mb-3">
                         <img
                             className="img-fluid"
                             src={file_upload}
                             alt="damaged phone, file upload"
-                            style={imageStyle}
                         />
                     </div>
                     <div className="col-12 col-md-6">
                         <img
-                            className="img-fluid"
+                            className="img-fluid mb-3"
                             src={file_uploaded}
                             alt="damaged phone, file upload"
-                            style={imageStyle}
                         />
                     </div>
                 </div>
