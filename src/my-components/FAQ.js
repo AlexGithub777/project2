@@ -18,7 +18,7 @@ function FAQ() {
   //Component UI: HTML Rendering
   return (
     <>
-      <div style={{ minHeight: "60vh", backgroundColor: "#eefaf3" }}>
+      <div style={{ minHeight: "60vh", backgroundColor: "#eefaf3" }} className="container-fluid">
         {/*Add search box on top*/}
         <div className="row justify-content-center">
           <input
